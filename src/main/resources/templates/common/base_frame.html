@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block  th:fragment="baseFrame(baseFrameCssLinks, baseFrameContent, baseFrameJsLinks, baseFrameNavContent)">
+	<th:block th:replace="common/base :: baseLayout(~{::#base-frame-css-res}, ~{::#base-frame-content}, ~{::#base-frame-js})">
+		
+		<!-- css内容 -->
+		<th:block id="base-frame-css-res">
+			<link rel="stylesheet" th:href="@{/static/common/css/base_frame.css}">
+			<th:block th:replace="${baseFrameCssLinks}"/>
+		</th:block>
+		
+		<th:block id="base-frame-content">
+			<section id="base-frame-root-section">
+				<header>
+				    <nav class="navbar navbar-default top-nav-wrapper">
+				    	<div class="container">
+				    		<div class="navbar-header">
+				    			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				    				<span class="icon-bar"></span>
+				    				<span class="icon-bar"></span>
+				    				<span class="icon-bar"></span>
+				    			</button>
+				    			<p class="navbar-text"><strong>英语四六级报名系统</strong></p>
+				    		</div>
+				    		
+				    		<!-- 导航栏内容 -->
+				    		<div id="navbar" class="collapse navbar-collapse">
+								<div th:replace="${baseFrameNavContent}">
+								</div>
+				    		</div>
+				    	</div>
+				    </nav>
+				</header>
+				
+				<!-- 主体内容 -->
+				<div th:replace="${baseFrameContent}"></div>
+			</section>
+		</th:block>
+		
+		<!-- js内容 -->
+		<th:block id="base-frame-js">
+			<th:block th:replace="${baseFrameJsLinks}"/>
+		</th:block>
+	
+	</th:block>
+</th:block>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"  lang="zh">
+<th:block th:replace="common/base_frame :: baseFrame(~{::#main-css-res}, ~{::#main-content}, ~{::#main-js}, ~{::#main-header-nav})">
+	<!-- css资源 -->
+	<th:block id="main-css-res">
+		<link rel="stylesheet" th:href="@{/static/workspace/css/main.css}">
+	</th:block>	
+	
+	<!-- 导航栏内容 -->
+	<th:block id="main-header-nav">
+		<ul class="main-header-nav nav navbar-nav navbar-right">
+			<li><a id="main-logout-link"  href="javascript:void(0);"><span class="glyphicon glyphicon-log-out top-nav-icon"></span>注销</a></li>
+		</ul>
+		
+		<ul class="main-header-nav nav navbar-nav navbar-right">
+			<li><a href="#"><span class="glyphicon glyphicon-user top-nav-icon"></span><span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">帐号</span></a></li>
+		</ul>
+	</th:block>
+	
+	<!-- 主体内容 -->
+	<th:block id="main-content">
+		<!-- 退出系统Form -->
+		<form id="main-logout-form" th:action="@{/logout.do}" method="post">
+		</form>
+	
+	
+	  	<div class="container">
+	  		<div class="row">
+	  			<div class="main-panel left-side-menu col-xs-12 col-sm-3  main-side-nav-container">
+	  				<ul class="side-nav">
+	  					<li><a id="main-side-nav-userinfo-link" href="javascript:void(0);" th:data-tar-link="@{/Workspace/toCurUserInfo.do}" class="side-nav-link"><span class="glyphicon glyphicon-user side-nav-icon"></span>个人资料</a></li>
+	  					<li><a href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-edit side-nav-icon"></span>修改密码</a></li>
+	  					<li><a href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-list-alt side-nav-icon"></span>报名考试</a></li>
+	  					<li><a href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-print side-nav-icon"></span>打印准考证</a></li>
+	  					<li><a href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-search side-nav-icon"></span>查询成绩</a></li>
+	  					<li><a id="main-side-nav-logout-link" href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-log-out side-nav-icon"></span>退出系统</a></li>
+	  				</ul>
+	  			</div>
+	  			
+	  			
+	  			<div class="main-panel col-xs-12  col-sm-8 main-content" id = "main-content">
+	  			</div>
+	  		</div>
+	  	</div>	
+	</th:block>
+	
+	<!-- js内容 -->
+	<th:block id="main-js">
+		<script th:src="@{/static/workspace/js/main.js}"></script>
+	</th:block>
+	
+</th:block>

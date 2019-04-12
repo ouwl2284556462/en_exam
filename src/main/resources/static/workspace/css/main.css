@@ -1,0 +1,34 @@
+.side-nav .side-nav-link{
+	color: #6c757d;
+    display: block;
+    padding: 15px 0px 15px 30px;
+    font-size: 15px;
+    -webkit-transition: all .4s;
+    transition: all .4s;
+    text-decoration: none;
+    
+}
+
+.side-nav .side-nav-link:hover{
+	text-decoration: none;
+	color: #337ab7;
+}
+
+
+.side-nav .side-nav-link .side-nav-icon{
+	margin-right: 20px;
+}
+
+.main-content{
+	min-height: 600px;
+	margin: 5px 10px;
+}
+
+.main-side-nav-container{
+	margin: 5px 10px;
+}
+
+.side-nav-link.active{
+	color: #337ab7;
+}
+

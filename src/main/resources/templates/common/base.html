@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<th:block th:fragment="baseLayout(css_links, content, js_links)">
+	<head>
+		<meta charset="utf-8">
+		<meta name="_csrf" th:content="${_csrf.token}"/>
+		<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+		
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" th:href="@{/static/common/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
+	    <title>英语四六级报名系统</title>
+	    
+	    <link rel="stylesheet" th:href="@{/static/common/css/base.css}">
+	    
+	    <th:block th:replace="${css_links}"/>
+	</head>
+	<body>
+	
+		<div class="modal fade" id="comm-notice-window">
+  			<div class="modal-dialog">
+  				<div class="modal-content">
+  					<div class="modal-header">
+  						<button type="button" class="close" data-dismiss="modal">
+  							<span>&times;</span>
+  						</button>
+  						<h4 class="modal-title" id="comm-notice-window-title">通知</h4>
+  					</div>
+  					<div class="modal-body">
+  						<div id="comm-notice-window-content">
+  						</div>
+  					</div>
+  					<div class="modal-footer">
+  						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+  					</div>
+  				</div>
+  			</div>
+  		</div> 
+	
+	
+	
+		<div th:replace="${content}">
+		</div>
+	
+	    <!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script th:src="@{/static/common/js/jquery-3.3.1.min.js}"></script>
+	    <script th:src="@{/static/common/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+	    
+	    <script th:src="@{/static/common/js/commAjaxFunc.js}"></script>
+	    <script th:src="@{/static/common/js/commUIFunc.js}"></script>
+	    
+	    <th:block th:replace="${js_links}"/>
+	</body>
+</th:block>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="common/base :: baseLayout(~{::#login-css-res}, ~{::#login-content}, ~{::#login-js})">
+	<!-- css资源 -->
+	<th:block id="login-css-res">
+		<link rel="stylesheet" th:href="@{/static/login/css/login.css}">
+	</th:block>	
+	
+	
+	<!-- 主体内容 -->
+	<th:block id="login-content">
+		<section class="login-section">
+			<div class="container login-container-root">
+				<div class="row login-title-wrapper">
+					<img alt="全国大学四六级考试报名系统" th:src="@{/static/images/login_title.jpg}" class="img-responsive col-xs-10 col-sm-6 col-md-6 col-lg-4">
+				</div>
+				
+				<div class="row login-logo-wrapper">
+					<img alt="全国大学四六级考试报名系统" th:src="@{/static/images/login_logo.jpg}" class="img-responsive col-xs-12">
+				</div>
+			
+				<div class="row login-form-wrapper">
+					<div class="login-form-container col-xs-12">
+						<form th:action="@{/doLogin.do}" class="login-form"  method="post">
+						
+							<div class="form-group" th:if="${loginError}">
+						  		<div class="alert alert-danger">
+					 				<strong>错误：</strong> 用户名或密码错误
+						  		</div>
+							</div>
+						
+						
+						
+							<div class="form-group">
+								<div class="input-group  input-group-lg">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+									<input class="form-control input-lg" type="text" autofocus required id="account" name="username" placeholder="帐号"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="input-group  input-group-lg">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+									<input class="form-control input-lg" type="password" required id="password" name="password"  placeholder="密码"/>
+								</div>
+							</div>
+							
+							<button class="btn btn-primary btn-block btn-lg" type="submit">登录</button>
+							
+							<div class="login-form-bottom">
+								<h5 class="text-muted"><a th:href="@{/login/toCreateAccount.do}">免费注册</a></h5>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+				<div class="row login-footer bg-info">
+					<div class="col-xs-12">
+						<h5 class="text-muted">建议使用Chrome、360浏览器等现代浏览器访问本网站</h5>
+					</div>
+				</div>
+			</div>
+		</section>	
+	</th:block>
+	
+	<!-- js内容 -->
+	<th:block id="login-js">
+	</th:block>	
+	
+</th:block>
+</html>

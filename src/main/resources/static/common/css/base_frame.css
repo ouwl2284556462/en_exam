@@ -1,0 +1,24 @@
+body{
+	background-color: #fafbfe;
+}
+
+.top-nav-icon{
+	margin-right: 5px;
+}
+
+.top-nav-wrapper {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+.main-panel{
+	background: #fff;
+	box-shadow: 0 0 20px 0 rgba(154,161,171,.15);
+	/*
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	*/
+}

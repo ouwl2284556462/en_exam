@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="exam.user.mapper.UserMapper" >
+	<resultMap type="exam.user.bean.UserBean" id="UserBeanResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+		<result column="identity_Num" property="identityNum" jdbcType="VARCHAR"/>
+		<result column="identity_type" property="identityType" jdbcType="VARCHAR"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="tel" property="tel" jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+
+	<!-- 插入账户信息 -->
+	<insert id="addAcctInfo"  useGeneratedKeys="true" keyProperty="id"  parameterType="exam.user.bean.UserBean">
+		insert into account(account_name, password) values(#{accountName}, #{password})
+	</insert>
+	
+	
+	<!-- 插入用户详细信息 -->
+	<insert id="addUseDtlInfo" parameterType="exam.user.bean.UserBean">
+		INSERT INTO user_dtl (
+			acct_id,
+			NAME,
+			tel,
+			identity_Num,
+			identity_type
+		)
+		VALUES(
+			#{id},
+		    #{name},
+		    #{tel},
+		    #{identityNum},
+		    #{identityType}
+		)
+	</insert>
+	
+	
+	<select id="findUserInfoByAccountName" resultMap="UserBeanResultMap">
+		SELECT
+			a.id,
+			a.account_name,
+			a.PASSWORD,
+			u.identity_Num,
+			u.identity_type,
+			u.NAME,
+			u.tel
+		FROM
+			account a,
+			user_dtl u
+		WHERE
+			a.id = u.acct_id
+		AND a.account_name = #{accountName}
+	</select>
+
+</mapper>
+
+

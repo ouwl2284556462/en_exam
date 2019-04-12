@@ -1,0 +1,55 @@
+html,body{
+	height: 100%;
+	min-height: 720px;
+}
+
+.login-section{
+	height: 100%;
+}
+
+.login-section .login-container-root{
+	position: relative;
+	height: 100%;
+}
+
+.login-title-wrapper{
+	margin-top: 20px;
+}
+
+.login-logo-wrapper{
+	margin-top: 20px;
+}
+
+.login-form-wrapper{
+	margin-top: 60px;
+}
+
+.login-form-container {
+	display: flex;
+	justify-content: center;
+}
+
+.login-form{
+	flex-basis: 350px;
+}
+
+.login-form-bottom{
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.login-form-bottom h5{
+	float:right;
+}
+
+
+.login-footer{
+	position: absolute;
+	bottom: 5px;
+	width: 100%;
+}
+
+.login-footer h5{
+	text-align: center;
+}
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="zh">
+<th:block th:replace="common/base_frame :: baseFrame(~{::#create-account-css-res}, ~{::#create-account-content}, ~{::#create-account-js}, ~{::#create-account-nav})">
+
+	<!-- css资源 -->
+	<th:block id="create-account-css-res">
+		<link rel="stylesheet" th:href="@{/static/login/css/create_account.css}">
+	</th:block>	
+	
+	<!-- 导航栏内容 -->
+	<th:block id="create-account-nav">
+		<ul class="main-header-nav nav navbar-nav navbar-right">
+			<li><a id="backToIndexPageLink" th:href="@{/}"><span class="glyphicon glyphicon-log-out top-nav-icon"></span>返回首页</a></li>
+		</ul>	
+	</th:block>
+	
+	<!-- 主体内容 -->
+	<th:block id="create-account-content">
+	
+		<input id="createAccountErrMsg" type="hidden" th:value="${errMsg}">
+	
+	  	<div class="container main-panel">
+  			<div class = "row">
+	  			<h3 class="col-xs-12 text-primary account-create-title">用户注册</h3>
+  			</div>
+  			
+		  	<div class="row" th:if="${errMsg} != null and ${errMsg} != '-'">
+		  		<div class="alert alert-danger  col-xs-8 col-sm-6 col-xs-offset-3">
+	 				<strong>错误：</strong> <span th:text="${errMsg}">错误</span>
+		  		</div>
+	 		</div> 
+	 		
+	  		<div class="row">
+				<form id="createAccountFrom"  class="form-horizontal" th:action="@{/login/createAccount.do}" method="post">
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="account">电子邮箱</label>
+						<div class="col-xs-8 col-sm-6">
+							<input class="form-control" type="email" required id="account" name="accountName" placeholder="" />
+							<span class="help-block">邮箱将作为您的登录账号</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="phone">手机号</label>
+						<div class="col-xs-8 col-sm-6">
+							<input class="form-control" type="tel" required id="phone"  name="tel" pattern="[0-9]{11}" title="请填写正确手机号码" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="password">密码</label>
+						<div class="col-xs-8 col-sm-6">
+							<input class="form-control" type="password" required id="password" name="password"  />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="passwordConfirm">密码确认</label>
+						<div class="col-xs-8 col-sm-6">
+							<input class="form-control" type="password" required id="passwordConfirm" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityType">证件类型</label>
+						<div class="col-xs-8 col-sm-6">
+							<select class="form-control" id="identityType"  name="identityType" >
+								<option value="1">中华人民共和国居民身份证</option>
+								<option value="2">护照</option>
+								<option value="3">香港身份证</option>
+							</select>							
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityNum">证件号码</label>
+						<div class="col-xs-8 col-sm-6">
+							<input class="form-control" type="text" required id="identityNum" name="identityNum" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="name">姓名</label>
+						<div class="col-xs-8 col-sm-6">
+							<input class="form-control" type="text" required id="name" name="name" />
+						</div>
+					</div>															
+
+					<div class="form-group create-account-submit-btn-div">
+						<button id="createAccountSubmitBtn" type="submit" class="btn btn-primary" data-loading-text="处理中..">提交</button>
+					</div>
+				</form>
+	  		</div>
+	  	</div>	
+	</th:block>
+	
+	<!-- js内容 -->
+	<th:block id="create-account-js">
+		<script th:src="@{/static/login/js/createAccount.js}"></script>
+	</th:block>	
+
+</th:block>
+</html>
