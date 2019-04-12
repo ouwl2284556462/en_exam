@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import exam.user.bean.UserBean;
 import exam.user.service.UserService;
@@ -29,6 +30,14 @@ public class WorkspaceController {
 		UserBean userBean = userService.findUserByAcctName(acctName);
 		model.addAttribute("userBean", userBean);
 		return "workspace/user_info";
+	}
+	
+	@RequestMapping("/updateUserDtl")
+	@ResponseBody
+	public String updateUserDtl(UserBean userBean, Model model) {
+		userService.updateUserDtl(userBean);
+		model.addAttribute("userBean", userBean);
+		return "Success";
 	}
 	
 }

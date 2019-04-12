@@ -55,6 +55,16 @@
 		AND a.account_name = #{accountName}
 	</select>
 
+	<update id="updateUserDtl" parameterType="exam.user.bean.UserBean">
+		UPDATE user_dtl
+		SET NAME = #{name},
+			 tel = #{tel},
+			 identity_Num = #{identityNum},
+			 identity_type = #{identityType}
+		WHERE
+			acct_id = #{id}
+	</update>
+
 </mapper>
 
 

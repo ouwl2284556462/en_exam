@@ -36,6 +36,12 @@ create table sys_dict_item(
 	description varchar(128),
 	mark varchar(64)
 );
+ALTER TABLE sys_dict_item ADD PRIMARY KEY (group_id, item_id);
+
+--插入证件类型信息
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('identity_type', '1', '中华人民共和国居民身份证', 1);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('identity_type', '2', '护照', 2);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('identity_type', '3', '香港身份证', 3);
 
 
 

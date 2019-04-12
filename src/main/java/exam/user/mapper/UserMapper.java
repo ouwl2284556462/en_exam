@@ -21,5 +21,11 @@ public interface UserMapper {
 	 * @return
 	 */
 	public UserBean findUserInfoByAccountName(String accountName);
+
+	/**
+	 * 更新用户详细信息
+	 * @param bean
+	 */
+	public void updateUserDtl(UserBean bean);
 	
 }

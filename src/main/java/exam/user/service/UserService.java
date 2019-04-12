@@ -11,4 +11,6 @@ public interface UserService extends UserDetailsService{
 	public boolean isAcctNameUsed(String acctName);
 	
 	public UserBean findUserByAcctName(String acctName);
+	
+	public void updateUserDtl(UserBean bean);
 }

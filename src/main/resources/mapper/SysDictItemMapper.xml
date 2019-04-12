@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="exam.dict.mapper.SysDictItemMapper" >
+	<resultMap type="exam.dict.bean.SysDictItemBean" id="SysDictItemBeanResultMap">
+		<result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+		<result column="item_id" property="itemId" jdbcType="VARCHAR"/>
+		<result column="item_name" property="itemName" jdbcType="VARCHAR"/>
+		<result column="sort" property="sort" jdbcType="INTEGER"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
+		<result column="mark" property="mark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="findSysDictItemBeansByGroupId" resultMap="SysDictItemBeanResultMap">
+		SELECT
+			group_id,
+			item_id,
+			item_name,
+			sort,
+			description,
+			mark
+		FROM
+			sys_dict_item
+		WHERE
+			group_id = #{groupId};
+	</select>
+</mapper>
+
+

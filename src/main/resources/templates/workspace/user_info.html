@@ -1,3 +1,63 @@
-<div>
-  test!!!!!
+<div class = "user-info-wrapper">
+		<div class = "row">
+			<h3 class="col-xs-12 text-primary text-center">个人资料</h3>
+		</div>
+		
+ 		<div class="row user-info-dtl-content-wrapper">
+			<form id="user-info-dtl-from" class="form-horizontal" method="post" th:action="@{/Workspace/updateUserDtl}">
+				<input type="hidden" name="id" th:value="${userBean.id}">
+			
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1" for="account">电子邮箱</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="email" required id="account" name="accountName" readonly="readonly" placeholder="" th:value="${userBean.accountName}" />
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="phone">手机号</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="tel" required id="phone"  name="tel" pattern="[0-9]{11}" title="请填写正确手机号码" th:value="${userBean.tel}" />
+					</div>
+				</div>
+	
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityType">证件类型</label>
+					<div class="col-xs-8 col-sm-6">
+						<select class="form-control" id="identityType"  name="identityType" owl:selectOp="'enumKey=identity_type,require=true,value=' + ${userBean.identityType}" >
+							<option value="0">test1</option>
+							<option value="1">test2</option>
+						</select>							
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityNum">证件号码</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="text" required id="identityNum" name="identityNum"   th:value="${userBean.identityNum}"  />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="name">姓名</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="text" required id="name" name="name"  th:value="${userBean.name}"  />
+					</div>
+				</div>															
+	
+				<div class="form-group text-center user-info-dtl-form-submitBtn-wrapper">
+					<button id="user-info-dtl-form-submitBtn"  type="submit" class="btn btn-primary" data-loading-text="处理中..">修改</button>
+				</div>
+			</form>
+ 		</div>
+ 		
+ 		
+ 		<script type="text/javascript" th:inline="javascript">
+ 			//加载css
+ 			var css_url = [[@{/static/workspace/css/user_info.css}]];
+ 			comm_ui_loadCSS(css_url);
+ 		</script>
+ 		
+ 		<script th:src="@{/static/workspace/js/user_info.js}"></script>
 </div>

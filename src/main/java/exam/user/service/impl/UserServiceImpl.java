@@ -69,5 +69,11 @@ public class UserServiceImpl implements UserService{
         return new User(userBean.getAccountName(), userBean.getPassword(), authorities);
 	}
 
+	@Transactional
+	@Override
+	public void updateUserDtl(UserBean bean) {
+		userMapper.updateUserDtl(bean);
+	}
+
 
 }

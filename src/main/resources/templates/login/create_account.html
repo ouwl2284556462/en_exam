@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="zh">
+<html xmlns:th="http://www.thymeleaf.org"  lang="zh"  xmlns:owl="https://blog.csdn.net/u011446250">
 <th:block th:replace="common/base_frame :: baseFrame(~{::#create-account-css-res}, ~{::#create-account-content}, ~{::#create-account-js}, ~{::#create-account-nav})">
 
 	<!-- css资源 -->
@@ -21,7 +21,7 @@
 	
 	  	<div class="container main-panel">
   			<div class = "row">
-	  			<h3 class="col-xs-12 text-primary account-create-title">用户注册</h3>
+	  			<h3 class="col-xs-12 text-primary  text-center">用户注册</h3>
   			</div>
   			
 		  	<div class="row" th:if="${errMsg} != null and ${errMsg} != '-'">
@@ -64,10 +64,9 @@
 					<div class="form-group">
 						<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityType">证件类型</label>
 						<div class="col-xs-8 col-sm-6">
-							<select class="form-control" id="identityType"  name="identityType" >
-								<option value="1">中华人民共和国居民身份证</option>
-								<option value="2">护照</option>
-								<option value="3">香港身份证</option>
+							<select class="form-control" id="identityType"  name="identityType" owl:selectOp="'enumKey=identity_type,require=true'">
+								<option value="0">test1</option>
+								<option value="1">test2</option>
 							</select>							
 						</div>
 					</div>
@@ -86,7 +85,7 @@
 						</div>
 					</div>															
 
-					<div class="form-group create-account-submit-btn-div">
+					<div class="form-group create-account-submit-btn-div  text-center">
 						<button id="createAccountSubmitBtn" type="submit" class="btn btn-primary" data-loading-text="处理中..">提交</button>
 					</div>
 				</form>
