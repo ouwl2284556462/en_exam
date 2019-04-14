@@ -24,6 +24,7 @@ function comm_Ajax_submitForm(formId, param){
 	
 	var url = fromObj.attr("action");
 	
+
 	
 	$.ajax({url: url, 
 		data: formParam, 
@@ -76,7 +77,8 @@ function comm_Ajax_post(url, param){
 		reqData = {};
 	}
 	
-	$.ajax({url: url, 
+	
+	var ajaxParam = {url: url, 
 			data: reqData, 
 			type: "POST",
 		    beforeSend: function(xhr){
@@ -103,7 +105,14 @@ function comm_Ajax_post(url, param){
     				submitBtnObj.button('reset');
     			}  	
 		    }
-	});
+	};
+	
+	if(param.isUploadFile){
+		ajaxParam.processData = false;
+		ajaxParam.contentType = false;
+	}
+	
+	$.ajax(ajaxParam);
 }
 
 function __comm_Ajax_setCsrfRequestHeader(xhr){

@@ -20,4 +20,9 @@ public class SysDictItemServiceImpl implements SysDictItemService{
 		return sysDictItemMapper.findSysDictItemBeansByGroupId(groupId);
 	}
 
+	@Override
+	public SysDictItemBean getDictItem(String groupId, String itemId) {
+		return sysDictItemMapper.getDictItem(groupId, itemId);
+	}
+
 }

@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;	
 	
 	@Autowired
-	private PasswordEncoder passwrodEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Transactional
 	@Override
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		//密码加密
-		bean.setPassword(passwrodEncoder.encode(bean.getPassword()));
+		bean.setPassword(passwordEncoder.encode(bean.getPassword()));
 		//插入账户信息
 		userMapper.addAcctInfo(bean);
 		//插入用户信息
@@ -73,6 +73,20 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUserDtl(UserBean bean) {
 		userMapper.updateUserDtl(bean);
+	}
+
+	@Transactional
+	@Override
+	public String updatePasswordWithCheck(String username, String oldPassword, String newPassword) {
+		UserBean userBean = findUserByAcctName(username);
+		
+		if(!passwordEncoder.matches(oldPassword, userBean.getPassword())) {
+			return "旧密码输入不正确。";
+		}
+		
+		userBean.setPassword(passwordEncoder.encode(newPassword));
+		userMapper.updateUserPassword(userBean);
+		return null;
 	}
 
 

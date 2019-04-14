@@ -35,6 +35,28 @@
   				</div>
   			</div>
   		</div> 
+  		
+  		<!-- 确认窗口 -->
+		<div class="modal fade" id="comm-confirm-window">
+  			<div class="modal-dialog">
+  				<div class="modal-content">
+  					<div class="modal-header">
+  						<button type="button" class="close" data-dismiss="modal">
+  							<span>&times;</span>
+  						</button>
+  						<h4 class="modal-title" id="comm-confirm-window-title">请确认</h4>
+  					</div>
+  					<div class="modal-body">
+  						<div id="comm-confirm-window-content">
+  						</div>
+  					</div>
+  					<div class="modal-footer">
+						<button id="comm-confirm-window-okBtn" type="button" class="btn btn-success" data-dismiss="modal">确认</button>  							
+  						<button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+  					</div>
+  				</div>
+  			</div>
+  		</div>  		
 	
 	
 	
@@ -44,6 +66,7 @@
 	    <!-- Optional JavaScript -->
 	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	    <script th:src="@{/static/common/js/jquery-3.3.1.min.js}"></script>
+	    <script th:src="@{/static/common/js/jquery.PrintArea.js}"></script>
 	    <script th:src="@{/static/common/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
 	    
 	    <script th:src="@{/static/common/js/commAjaxFunc.js}"></script>

@@ -1,0 +1,16 @@
+.exam-ticket-birthday-center{
+	line-height: 50px !important;
+}
+
+.exam-ticket-name-center{
+	line-height: 50px !important;
+}
+
+.exam-ticket-tips-ul{
+	list-style:disc;
+	margin-left: 50px;
+}
+
+.exam-ticket-tips-wrapper{
+	margin-left: 30px;
+}

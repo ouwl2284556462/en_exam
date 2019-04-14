@@ -1,0 +1,194 @@
+<div class = "exam-apply-wrapper">
+	<div class="row">
+		<h3 class="col-xs-12 text-primary text-center">考试报名</h3>
+	</div>
+		
+	<div class="row exam-apply-content-wrapper">
+		<!-- 报名协议、承诺书 -->
+		<div id = "exam-apply-protocol-div">
+		
+			<div class="panel panel-primary exam-apply-protocol-wrapper">
+				<div class="panel-heading panel-title">报名协议</div>
+				<div class="panel-body">
+					<p class="exam-apply-protocol-content">
+				        1. 本报名网站的所有权归教育部考试中心所有，考生必须完全同意本协议条款，方可进行网上报名。<br>
+				        2. 考生本人已认真阅读并同意遵守本网站提供的报名流程及考生须知。<br>
+				        3. 考生本人保证报名时的个人信息资料真实、正确，并将对个人信息不真实或不正确而导致无法参加考试以及其它直接或间接的后果负责。<br>
+				        4. 考生本人理解并同意，在报名过程中出现不可抗力所引起的无法正常报名的情况，本网站不承担任何直接或间接的责任。<br>
+				        5. 考生本人理解并同意，网上支付系统由支付平台所有并运营，在付费过程中由于支付平台网上系统问题导致的任何异常情况，本网站不承担直接或间接责任。<br>
+				        6. 考生本人理解并同意，在报名成功后，因本网站系统出现问题影响考生本人参加考试，本网站可能提供的补偿仅限于帮助安排重新报名或全额退还报名费，不承担任何其它连带责任。<br>
+				        7. 考生本人理解并同意，考生最终参加考试的考点和时间以考生领取的准考证上注明的考点和时间为准。<br>
+				        8. 报名程序如有任何变化，请以本网站公告为准。<br>
+				        9. 本报名网站所收集的考生个人信息数据仅用于全国大学英语四、六级考试报名,考生同意教育部考试中心按考务流程获知、处理、存储本人信息数据。<br>
+				        10. 已阅读并且理解全国大学英语四、六级考试的有关规定和纪律要求，愿意在考试中自觉遵守这些规定，保证按规定的程序和要求参加考试，如有违反，自愿按《国家教育考试违规处理办法》有关条款接受处理。 <br>
+				        11. 遵守全国大学英语四、六级考试有关报名规定，不弄虚作假，不伪造、使用假证明、假证书。如有违反，自愿按规定接受处理。 <br>
+				        12. 服从考场工作人员和监考教师管理,自觉遵守考试纪律，考试诚实守信，不违规，不作弊。<br>
+					</p>				        
+				</div>
+			</div>			
+
+			<div class="panel panel-primary  exam-apply-protocol-wrapper">
+				<div class="panel-heading">诚信承诺书</div>
+				<div class="panel-body">
+					<p class="exam-apply-protocol-content">
+					        本人自愿参加全国大学英语四、六级考试，现郑重承诺：<br>
+					        一、本人已阅读并且透彻地理解了全国大学英语四、六级考试的有关规定和纪律要求，愿意在考试中自觉遵守这些规定，保证按规定的程序和要求参加考试，如有违反，自愿按《国家教育考试违规处理办法》有关条款接受处理。<br>
+					        二、本人坚决遵守全国大学英语四、六级考试有关报名规定，不弄虚作假，不伪造、使用假证明、假证书。如有违反，自愿按规定接受处理。<br>
+					        三、本人坚决服从考场工作人员和监考教师管理,自觉遵守考试纪律，考试诚实守信，不违规，不作弊。<br>
+					        四、本人报名时所提供的个人信息是真实、准确、完整的，如因个人信息错误、失真、缺失造成不良后果，责任由本人承担。<br>
+                    </p>					        
+				</div>
+			</div>
+			
+			<div class="text-center">
+				<input id="exam-apply-acceptProtocolBtn" class="btn btn-primary btn-lg" type="button" value="我已阅读并接受准守报名协议及诚信承诺书"/>			
+			</div>
+			
+
+		</div>
+		
+		<!-- 报名表格 -->
+		<div id = "exam-apply-dtl-info-div" class="hidden">
+		
+			<div class="hidden">
+				<form id="exam-apply-headPhotoUploadForm" method="POST" enctype="multipart/form-data">
+				</form>
+				
+				<a id="exam-apply-confirm-dtl-link" th:href="@{/Workspace/toConfirmExamApplyInfo.do}"></a>
+			</div>
+		
+			<form id="exam-apply-dtl-from" class="form-horizontal" method="post" th:action="@{/Workspace/saveExamApplyInfo.do}">
+			
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="examId">级别</label>
+					<div class="col-xs-8 col-sm-6">
+						<select class="form-control" id="examId"  name="examInfo.id"  owl:selectOp owl:enumList="${examList}" owl:require="'true'">
+							<option value="0">选项1</option>
+							<option value="1">选项2</option>
+						</select>		
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="examRegion">考点地区</label>
+					<div class="col-xs-8 col-sm-6">
+						<select class="form-control" id="exam-apply-examRegion"  owl:selectOp owl:enumKey="'exam_place_region'" owl:require="'true'">
+							<option value="0">选项1</option>
+							<option value="1">选项2</option>
+						</select>							
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="examPlaceId">考点名称</label>
+					<div class="col-xs-8 col-sm-6">
+						<select class="form-control" id="exam-apply-examPlaceId" th:data-get-data-url="@{/Workspace/getExamPlaceByRegionId.do}" name="examPlace.id"  owl:selectOp owl:enumList="${examPlaceIdList}" owl:require="'true'">
+							<option value="0">选项1</option>
+							<option value="1">选项2</option>
+						</select>							
+					</div>
+				</div>					
+				
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="exam-apply-photoFile">照片</label>
+					<div class="col-xs-8 col-sm-6">
+	                    <div class="img-thumbnail exam-apply-head-photo-wrapper">
+	                    	<label for="exam-apply-photoFile">
+	                        	<img id="exam-apply-photoFile-img" th:src="@{/static/images/default_img.jpg}" alt="个人照片"  width="110px;" height="140px;" />
+	                    	</label>
+							<input class="hidden" type="file" id="exam-apply-photoFile" th:data-upload-url="@{/Workspace/uploadHeadPhoto.do}">
+	                    </div>
+						<span class="help-block">提示：本人免冠正面证件照片，文件大小1M以内</span>
+					</div>
+					
+					<input type="hidden" name="photeUrl" id="exam-apply-photeUrl">
+				</div>					
+	
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="name">姓名</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="text" required id="name" name="name"  th:value="${userBean.name}" placeholder="" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="nameSpell">拼音</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="text" required id="nameSpell" name="nameSpell"  placeholder="" />
+					</div>
+				</div>	
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="sex">性别</label>
+					<div class="col-xs-8 col-sm-6">
+						<div class="radio-inline">
+							<label>
+								<input type="radio" checked="checked" name="sex" value="1">
+								男
+							</label>
+						</div>	
+						
+						<div class="radio-inline">
+							<label>
+								<input type="radio" name="sex"  value="2">
+								女
+							</label>
+						</div>	
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="country">国籍</label>
+					<div class="col-xs-8 col-sm-6">
+						<select class="form-control" id="country"  name="country"  owl:selectOp owl:enumKey="'country_code'" owl:require="'true'">
+							<option value="0">选项1</option>
+							<option value="1">选项2</option>
+						</select>							
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityType">证件类型</label>
+					<div class="col-xs-8 col-sm-6">
+						<select class="form-control" id="identityType"  name="identityType" owl:selectOp owl:enumKey="'identity_type'" owl:require="'true'"  owl:defaultVal="${userBean.identityType}" >
+							<option value="0">test1</option>
+							<option value="1">test2</option>
+						</select>							
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityNum">证件号码</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="text" required id="identityNum"  th:value="${userBean.identityNum}"  name="identityNum" />
+					</div>
+				</div>		
+				
+				<div class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for=birthday>出生日期</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="date" required id="birthday" name="birthday" />
+					</div>
+				</div>	
+				
+	
+				<div class="form-group text-center exam-apply-dtl-from-submitBtn-wrapper">
+					<button id="exam-apply-dtl-from-submitBtn"  type="submit" class="btn btn-primary" data-loading-text="处理中..">提交</button>
+				</div>
+			</form>
+		
+		</div>
+	</div>
+	
+	
+	<script type="text/javascript" th:inline="javascript">
+		//加载css
+		var css_url = [[@{/static/workspace/css/exam-apply.css}]];
+		comm_ui_loadCSS(css_url);
+	</script>
+	
+	<script th:src="@{/static/workspace/js/exam_apply.js}"></script>
+		
+</div>

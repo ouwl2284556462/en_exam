@@ -64,6 +64,13 @@
 		WHERE
 			acct_id = #{id}
 	</update>
+	
+	<update id="updateUserPassword" parameterType="exam.user.bean.UserBean">
+		UPDATE account
+		SET password = #{password}
+		WHERE
+			id = #{id}
+	</update>	
 
 </mapper>
 

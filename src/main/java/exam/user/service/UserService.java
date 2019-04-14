@@ -13,4 +13,6 @@ public interface UserService extends UserDetailsService{
 	public UserBean findUserByAcctName(String acctName);
 	
 	public void updateUserDtl(UserBean bean);
+
+	public String updatePasswordWithCheck(String acctName, String oldPassword, String newPassword);
 }

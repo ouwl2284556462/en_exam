@@ -1,0 +1,33 @@
+<div id="exam-tick-wrapper" class="exam-tick-wrapper">
+	<div class = "row">
+		<h3 class="col-xs-12 text-primary text-center">英语等级考试成绩结果查询</h3>
+	</div>
+
+	<div>
+		<table class="table table-responsive table-bordered" style="max-width: 350px; margin: 0px auto;">
+	    	<tbody>
+	    		<tr>
+	    			<td class=" text-center col-xs-2">准考证号</td>
+	    			<td class=" text-center col-xs-5" th:text="${examApplyInfo.examIdCode}"></td>
+	    		</tr>  
+	    		
+	    		<tr>
+	    			<td class=" text-center">姓名</td>
+	    			<td class=" text-center" th:text="${examApplyInfo.name}"></td>
+	    		</tr>     	    		
+	    	
+	    		<tr>
+	    			<td class="text-center" >级别</td>
+	    			<td class="text-center" owl:enumVal="${examApplyInfo.examInfo.examLevel}" owl:enumKey="'exam_level'"></td>
+	    		</tr>
+	    		
+	    		<tr>
+	    			<td class=" text-center">总分</td>
+	    			<td class=" text-center"></td>
+	    		</tr>    
+	    	</tbody>
+		</table>  
+	</div>  		  		   		
+    		
+	
+</div>

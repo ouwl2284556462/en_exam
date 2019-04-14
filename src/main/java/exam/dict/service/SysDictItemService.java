@@ -7,4 +7,6 @@ import exam.dict.bean.SysDictItemBean;
 public interface SysDictItemService {
 	
 	public List<SysDictItemBean> findSysDictItemBeansByGroupId(String groupId);
+
+	public SysDictItemBean getDictItem(String groupId, String itemId);
 }

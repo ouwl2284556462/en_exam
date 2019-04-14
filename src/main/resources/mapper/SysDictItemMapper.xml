@@ -10,19 +10,35 @@
 		<result column="mark" property="mark" jdbcType="VARCHAR"/>
 	</resultMap>
 	
-	<select id="findSysDictItemBeansByGroupId" resultMap="SysDictItemBeanResultMap">
-		SELECT
+	<sql id="SysDictItemAllFields">
 			group_id,
 			item_id,
 			item_name,
 			sort,
 			description,
 			mark
+	</sql>
+	
+	<select id="findSysDictItemBeansByGroupId" resultMap="SysDictItemBeanResultMap">
+		SELECT
+			<include refid="SysDictItemAllFields"></include>
 		FROM
 			sys_dict_item
 		WHERE
-			group_id = #{groupId};
+			group_id = #{groupId}
+		order by sort
 	</select>
+	
+	<select id="getDictItem"  resultMap="SysDictItemBeanResultMap">
+		SELECT
+			<include refid="SysDictItemAllFields"></include>
+		FROM
+			sys_dict_item
+		WHERE
+			group_id = #{groupId}
+		and item_id = #{itemId}	
+	</select>
+	
 </mapper>
 
 

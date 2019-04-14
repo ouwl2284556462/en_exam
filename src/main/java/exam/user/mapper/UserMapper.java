@@ -27,5 +27,8 @@ public interface UserMapper {
 	 * @param bean
 	 */
 	public void updateUserDtl(UserBean bean);
+
+	public void updateUserPassword(UserBean userBean);
+
 	
 }

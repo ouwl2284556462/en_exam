@@ -23,6 +23,7 @@ public class OwlDialect extends AbstractProcessorDialect{
 	public Set<IProcessor> getProcessors(String dialectPrefix) {
 		Set<IProcessor> processors = new HashSet<IProcessor>();
 		processors.add(new SelectOpAttributeTagProcessor(dialectPrefix));
+		processors.add(new EnumTranslateTagProcessor(dialectPrefix));
 		return processors;
 	}
 

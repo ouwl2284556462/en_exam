@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="exam.examination.mapper.ExamMapper" >
+	<resultMap type="exam.examination.bean.ExamInfoBean" id="ExamInfoBeanResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="exam_name" property="examName" jdbcType="VARCHAR"/>
+		<result column="exam_level" property="examLevel" jdbcType="VARCHAR"/>
+		<result column="apply_start_time" property="applyStartTime" jdbcType="TIMESTAMP"/>
+		<result column="apply_end_time" property="applyEndTime" jdbcType="TIMESTAMP"/>
+		<result column="exam_time" property="examTime" jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="state" property="state" jdbcType="VARCHAR"/>
+		<result column="mark" property="mark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap type="exam.examination.bean.ExamPlaceBean" id="ExamPlaceBeanResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="region" property="region" jdbcType="VARCHAR"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<result column="traffic" property="traffic" jdbcType="VARCHAR"/>
+		<result column="mark" property="mark" jdbcType="VARCHAR"/>
+	</resultMap>	
+	
+	<resultMap type="exam.examination.bean.ExamApplyInfoBean" id="ExamApplyInfoResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="CODE" property="code" jdbcType="VARCHAR"/>
+		<result column="photo_url" property="photeUrl" jdbcType="VARCHAR"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="name_spell" property="nameSpell" jdbcType="VARCHAR"/>
+		<result column="identity_num" property="identityNum" jdbcType="VARCHAR"/>
+		<result column="identity_type" property="identityType" jdbcType="VARCHAR"/>
+		<result column="sex" property="sex" jdbcType="VARCHAR"/>
+		<result column="country" property="country" jdbcType="VARCHAR"/>
+		<result column="birthday" property="birthday" jdbcType="DATE"/>
+		<result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
+		
+		
+		<association property="examInfo" column="exam_id"  javaType="exam.examination.bean.ExamInfoBean" select="getExamInfoById">
+		</association>
+		
+		<association property="examPlace" column="place_id"  javaType="exam.examination.bean.ExamPlaceBean" select="getExamPlaceById">
+		</association>		
+		
+	</resultMap>
+	
+	
+	
+	<sql id="examInfoAllField">
+		id,
+		exam_name,
+		exam_level,
+		apply_start_time,
+		apply_end_time,
+		exam_time,
+		create_time,
+		state,
+		mark	
+	</sql>
+	
+	<sql id="examPlaceAllField">
+		id,
+		region,
+		NAME,
+		address,
+		traffic,
+		mark	
+	</sql>
+	
+	<sql id="examApplyInfoAllField">
+			t.id,
+			t. CODE,
+			t.exam_id,
+			t.place_id,
+			t.photo_url,
+			t. NAME,
+			t.name_spell,
+			t.identity_num,
+			t.identity_type,
+			t.sex,
+			t.country,
+			t.birthday,
+			t.apply_time
+	</sql>
+	
+	<select id="findExamInfosByState" resultMap="ExamInfoBeanResultMap">
+			SELECT
+				<include refid="examInfoAllField"></include>
+			FROM
+				exam_info
+			WHERE
+				state = #{state}
+			ORDER BY
+				id
+	</select>
+	
+	
+	<select id="getExamInfoById"  resultMap="ExamInfoBeanResultMap">
+			SELECT
+				<include refid="examInfoAllField"></include>
+			FROM
+				exam_info
+			WHERE
+				id = #{id}
+	</select>
+	
+	<select id="getExamPlaceById"  resultMap="ExamPlaceBeanResultMap">
+			SELECT
+				<include refid="examPlaceAllField"></include>
+			FROM
+				exam_place
+			WHERE
+				id = #{id}
+	</select>	
+	
+	
+	
+	<select id="findExamPlaceByRegionId" resultMap="ExamPlaceBeanResultMap">
+			SELECT
+				<include refid="examPlaceAllField"></include>
+			FROM
+				exam_place
+			WHERE
+				region = #{regionId}
+			order by id
+	</select>	
+	
+	
+	<insert id="insertExamApplyInfo"  useGeneratedKeys="true" keyProperty="id"  parameterType="exam.examination.bean.ExamApplyInfoBean">
+		INSERT INTO exam_apply_info (
+			code,
+			exam_id,
+			place_id,
+			photo_url,
+			name,
+			name_spell,
+			identity_Num,
+			identity_type,	
+			sex,
+			country,
+			birthday,
+			apply_Time
+		)
+		VALUES(
+			#{code},
+		    #{examInfo.id},
+		    #{examPlace.id},
+		    #{photeUrl},
+		    #{name},
+		    #{nameSpell},
+		    #{identityNum},
+		    #{identityType},
+		    #{sex},
+		    #{country},
+		    #{birthday},
+		    now()
+		)
+	</insert>
+	
+	<insert id="insertUserExamApply"  parameterType="exam.examination.bean.UserExamApplyBean">
+		INSERT INTO user_exam_apply (
+			user_id,
+			exam_apply_id
+		)
+		VALUES(
+			#{userId},
+		    #{examApplyId}
+		)
+	</insert>
+	
+	<select id="findUserExamApplyByUserId"  resultMap="ExamApplyInfoResultMap">
+		SELECT
+			<include refid="examApplyInfoAllField"></include>
+		FROM
+			exam_apply_info t,
+			user_exam_apply u
+		WHERE
+			t.id = u.exam_apply_id
+		AND u.user_id = #{userId}
+	</select>
+</mapper>

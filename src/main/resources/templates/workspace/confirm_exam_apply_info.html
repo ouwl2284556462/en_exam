@@ -1,0 +1,67 @@
+<div id="confirm-exam-apply-info-wrapper" class="confirm-exam-apply-info-wrapper">
+	<table class="table table-responsive">
+		<caption>考生信息</caption>
+    	<tbody>
+    		<tr>
+    			<td>级别</td>
+    			<td th:text="${examApplyInfo.examInfo.examName}"></td>
+    		</tr>
+    		
+    		<tr>
+    			<td>考点地区</td>
+    			<td owl:enumVal="${examApplyInfo.examPlace.region}" owl:enumKey="'exam_place_region'"></td>
+    		</tr>   
+    		<tr>
+    			<td>考点名称</td>
+    			<td th:text="${examApplyInfo.examPlace.name}"></td>
+    		</tr> 
+    		<tr>
+    			<td>考点地址</td>
+    			<td th:text="${examApplyInfo.examPlace.address}"></td>
+    		</tr>  
+    		<tr>
+    			<td>交通</td>
+    			<td th:text="${examApplyInfo.examPlace.traffic}"></td>
+    		</tr>      		   		
+    		
+    		<tr>
+    			<td>照片</td>
+    			<td>
+                    <div class="img-thumbnail">
+                        <img th:src="${examApplyInfo.photeUrl}" alt="个人照片"  width="110px;" height="140px;" />
+                    </div>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>姓名</td>
+    			<td th:text="${examApplyInfo.name}"></td>
+    		</tr>   
+    		<tr>
+    			<td>拼音</td>
+    			<td th:text="${examApplyInfo.nameSpell}"></td>
+    		</tr> 
+    		<tr>
+    			<td>性别</td>
+    			<td owl:enumVal="${examApplyInfo.sex}" owl:enumKey="'sex'"></td>
+    		</tr>  
+    		<tr>
+    			<td>国籍</td>
+    			<td owl:enumVal="${examApplyInfo.country}" owl:enumKey="'country_code'"></td>
+    		</tr>   
+    		<tr>
+    			<td>证件类型</td>
+    			<td owl:enumVal="${examApplyInfo.identityType}" owl:enumKey="'identity_type'"></td>
+    		</tr>   
+    		<tr>
+    			<td>证件号码</td>
+    			<td th:text="${examApplyInfo.identityNum}"></td>
+    		</tr>      		  		
+    		<tr>
+    			<td>出生日期</td>
+    			<td th:text="${examApplyInfo.birthday}"></td>
+    		</tr>  
+    		  		   		    		  		
+    	</tbody>
+	</table>
+
+</div>
