@@ -1,7 +1,9 @@
 <div class = "user-info-wrapper">
-		<div class = "row">
+		<div class = "row" th:if="'adminChgInfo' != ${from}">
 			<h3 class="col-xs-12 text-primary text-center">个人资料</h3>
 		</div>
+		
+		<input type="hidden" id="user-info-dtl-form-flag" th:value="${from}">
 		
  		<div class="row user-info-dtl-content-wrapper">
 			<form id="user-info-dtl-from" class="form-horizontal" method="post" th:action="@{/Workspace/updateUserDtl.do}">
@@ -48,6 +50,7 @@
 	
 				<div class="form-group text-center user-info-dtl-form-submitBtn-wrapper">
 					<button id="user-info-dtl-form-submitBtn"  type="submit" class="btn btn-primary" data-loading-text="处理中..">修改</button>
+					<button  th:if="'adminChgInfo' == ${from}" id="user-info-dtl-form-returnBtn" class="btn btn-primary">返回</button>
 				</div>
 			</form>
  		</div>

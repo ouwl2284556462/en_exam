@@ -9,13 +9,35 @@
 		<result column="identity_type" property="identityType" jdbcType="VARCHAR"/>
 		<result column="NAME" property="name" jdbcType="VARCHAR"/>
 		<result column="tel" property="tel" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		
+		
+        <collection property="roles" ofType="exam.user.bean.SysRoleBean">
+            <result column="role_name" property="name"  jdbcType="VARCHAR"/>
+            <result column="role_id" property="id"  jdbcType="INTEGER"/>
+            <result column="role_mark" property="mark"  jdbcType="VARCHAR"/>
+        </collection>
 	</resultMap>
+	
+	<sql id="userInfoAllField">
+			a.id,
+			a.account_name,
+			a.PASSWORD,
+			a.create_time,
+			u.identity_Num,
+			u.identity_type,
+			u.NAME,
+			u.tel,
+			r.name role_name,
+			r.id role_id,
+			r.mark role_mark	
+	</sql>
 
 
 
 	<!-- 插入账户信息 -->
 	<insert id="addAcctInfo"  useGeneratedKeys="true" keyProperty="id"  parameterType="exam.user.bean.UserBean">
-		insert into account(account_name, password) values(#{accountName}, #{password})
+		insert into account(account_name, password, create_time) values(#{accountName}, #{password}, now())
 	</insert>
 	
 	
@@ -37,22 +59,40 @@
 		)
 	</insert>
 	
+	<insert id="insertSysUserRole">
+		INSERT INTO sys_user_role (
+			user_id,
+			role_id
+		)
+		VALUES(
+			#{userId},
+		    #{roleId}
+		)
+	</insert>
+	
+	
+	<select id="findUserById"  parameterType="int" resultMap="UserBeanResultMap">
+		SELECT
+			<include refid="userInfoAllField"></include>
+		FROM
+			account a
+		inner join user_dtl u on a.id = u.acct_id
+		left join sys_user_role ur on a.id = ur.user_id
+		left join sys_role r on ur.role_id = r.id
+		WHERE a.id = #{id}
+	</select>	
+	
+	
 	
 	<select id="findUserInfoByAccountName" resultMap="UserBeanResultMap">
 		SELECT
-			a.id,
-			a.account_name,
-			a.PASSWORD,
-			u.identity_Num,
-			u.identity_type,
-			u.NAME,
-			u.tel
+			<include refid="userInfoAllField"></include>
 		FROM
-			account a,
-			user_dtl u
-		WHERE
-			a.id = u.acct_id
-		AND a.account_name = #{accountName}
+			account a
+		inner join user_dtl u on a.id = u.acct_id
+		left join sys_user_role ur on a.id = ur.user_id
+		left join sys_role r on ur.role_id = r.id
+		WHERE a.account_name = #{accountName}
 	</select>
 
 	<update id="updateUserDtl" parameterType="exam.user.bean.UserBean">
@@ -70,8 +110,56 @@
 		SET password = #{password}
 		WHERE
 			id = #{id}
-	</update>	
-
+	</update>
+	
+	<update id="updateUserPasswordById">
+		UPDATE account
+		SET password = #{newPassword}
+		WHERE
+			id = #{userId}
+	</update>
+	
+	
+	
+	<select id="qryUserList" resultMap="UserBeanResultMap" parameterType="exam.user.bean.UserBean">
+		SELECT
+			<include refid="userInfoAllField"></include>
+		FROM
+			account a
+		inner join user_dtl u on a.id = u.acct_id
+		left join sys_user_role ur on a.id = ur.user_id
+		left join sys_role r on ur.role_id = r.id
+		<where>
+		    <if test="accountName != null and accountName != ''">
+		        and a.account_name = #{accountName}
+		    </if>
+		    <if test="tel != null and tel != ''">
+		        and u.tel = #{tel}
+		    </if>	
+		    <if test="name != null and name != ''">
+		        and  u.NAME = #{name}
+		    </if>
+		    <if test="identityNum != null and identityNum != ''">
+		       and   u.identity_Num = #{identityNum}
+		    </if>
+		    <if test="identityType != null and identityType != ''">
+		       and   u.identity_type = #{identityType}
+		    </if>	
+		    <if test="roles != null and roles.size > 0 and roles[0].name != '' ">
+		        and  r.name = #{roles[0].name}
+		    </if>
+		</where>
+		order by a.create_time desc
+	</select>
+	
+	<delete id="deleteAccount"  parameterType="int[]">
+		delete from account where id in
+		<foreach collection="array" item = "id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	
 </mapper>
 
 

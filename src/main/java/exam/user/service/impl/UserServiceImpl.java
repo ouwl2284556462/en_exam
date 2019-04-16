@@ -12,6 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import exam.base.constants.SysUserConstants;
+import exam.user.bean.SysRoleBean;
 import exam.user.bean.UserBean;
 import exam.user.mapper.UserMapper;
 import exam.user.service.UserService;
@@ -38,6 +43,9 @@ public class UserServiceImpl implements UserService{
 		userMapper.addAcctInfo(bean);
 		//插入用户信息
 		userMapper.addUseDtlInfo(bean);
+		//插入普通用户角色
+		//插入用户角色关系表
+		userMapper.insertSysUserRole(SysUserConstants.ROLE_USER_ID, bean.getId());
 		return null;
 	}
 
@@ -60,12 +68,15 @@ public class UserServiceImpl implements UserService{
         
         
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-//        
-//        for (SysRole role : sysUser.getRoleList()) {
+        
+        for (SysRoleBean role : userBean.getRoles()) {
+        	//不做这么细分
 //            for (SysPermission permission : role.getPermissionList()) {
 //                authorities.add(new SimpleGrantedAuthority(permission.getCode()));
 //            }
-//        }
+        	authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        
         return new User(userBean.getAccountName(), userBean.getPassword(), authorities);
 	}
 
@@ -87,6 +98,31 @@ public class UserServiceImpl implements UserService{
 		userBean.setPassword(passwordEncoder.encode(newPassword));
 		userMapper.updateUserPassword(userBean);
 		return null;
+	}
+
+	@Override
+	public PageInfo<UserBean> qryUserListByPage(UserBean userBean, int pageNum, int pagePerNum) {
+		PageHelper.startPage(pageNum, pagePerNum);
+		List<UserBean> result = userMapper.qryUserList(userBean);
+		PageInfo<UserBean> pageInfo = new PageInfo<UserBean>(result);
+		return pageInfo;
+	}
+
+	@Transactional
+	@Override
+	public void deleteUser(String[] ids) {
+		userMapper.deleteAccount(ids);
+	}
+
+	@Override
+	public UserBean findUserById(int id) {
+		return userMapper.findUserById(id);
+	}
+
+	@Override
+	public void updatePassword(int userId, String newPassword) {
+		newPassword = passwordEncoder.encode(newPassword);
+		userMapper.updateUserPasswordById(userId, newPassword);
 	}
 
 

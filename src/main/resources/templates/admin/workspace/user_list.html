@@ -1,0 +1,45 @@
+<div>
+		<table class="table  table-bordered  table-hover  table-condensed user-list-table">
+			<caption>用户信息</caption>
+			<thead>
+				<tr>
+					<th class="text-center">选择</th>
+					<th class="text-center">电子邮箱</th>
+					<th class="text-center">姓名</th>
+					<th class="text-center">角色</th>
+					<th class="text-center">手机号</th>
+					<th class="text-center">证件类型</th>
+					<th class="text-center">证件号码</th>
+				</tr>
+			</thead>
+	    	<tbody>
+	    		<tr class="user-list-table-row"  th:each="user, userIterStat:${pageInfo.list}">
+	    			<td class="text-center"><input class="user-list-table-col-selectCheckBox" type="checkbox" th:data-user-id="${user.id}"/></td>
+	    			<td class="text-center" th:text="${user.accountName}"></td>
+	    			<td class="text-center" th:text="${user.name}"></td>
+	    			<td class="text-center" owl:enumVal="${user.roles[0].name}" owl:enumKey="'sys_role'"  ></td>
+	    			<td class="text-center" th:text="${user.tel}"></td>
+	    			<td class="text-center" owl:enumVal="${user.identityType}" owl:enumKey="'identity_type'"  ></td>
+	    			<td class="text-center" th:text="${user.identityNum}"></td>
+	    		</tr>
+	    	</tbody>
+	    	
+		</table>
+		
+	  	<!-- 分页 -->
+	  	<div th:replace="common/pager :: pager(${pageInfo}, user_manage_onQryUserListFormSubmit)"></div>
+  	
+	  	<div class="user-list-operator-btn-list">
+	  		<input id="user-list-chginfoBtn" class="btn btn-primary" type="button" th:data-target-url="@{/admin/Workspace/toChgUserInfo.do}"  data-loading-text="处理中.." value="修改信息"/>
+	  		<input id="user-list-chgpasswordBtn" class="btn btn-primary" type="button" th:data-target-url="@{/admin/Workspace/toChgPassword.do}"  data-loading-text="处理中.." value="修改密码"/>
+	  		<input id="user-list-deleteBtn" class="btn btn-danger" type="button" th:data-target-url="@{/admin/Workspace/deleteUserList.do}"  data-loading-text="处理中.." value="删除用户"/>
+	  	</div>
+  	
+	<script type="text/javascript" th:inline="javascript">
+		//加载css
+		var css_url = [[@{/static/admin/workspace/css/user_list.css}]];
+		comm_ui_loadCSS(css_url);
+	</script>
+	
+	<script th:src="@{/static/admin/workspace/js/user_list.js}"></script>
+</div>

@@ -71,7 +71,7 @@ public class WorkspaceController {
 	
 	@RequestMapping("/updateCurUserPassword.do")
 	@ResponseBody
-	public String updateCurUserPassword(Model model, Authentication authentication, String oldPassword, String newPassword) {
+	public String updateCurUserPassword(Authentication authentication, String oldPassword, String newPassword) {
 		String acctName = authentication.getName();
 		String retMsg = userService.updatePasswordWithCheck(acctName, oldPassword, newPassword);
 		

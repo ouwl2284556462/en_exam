@@ -22,6 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		//允许所有用户访问"/"  登录页
 		http.authorizeRequests()
+			.antMatchers("/admin/**").hasAnyAuthority("admin")
 		    .antMatchers("/", "/login/**", "/static/**")
 		    .permitAll()
 			.anyRequest()

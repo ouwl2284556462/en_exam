@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+</head>
+<body>
+	<div  th:fragment="pager(pageInfo, actionFunc)" class="row">
+		<nav class="pull-right" style="height: 50px;" th:if="${pageInfo.pages} gt 1">
+			<ul class="pagination  col-sm-12" style="margin: 0px 0px; padding: 0px 0px;">
+				<li><a href="javascript:void(0);" th:data-page-num="${pageInfo.prePage}" th:onclick="pager_onPageLinkClick(this);"><span>&laquo;</span></a></li>
+				
+				<th:block th:each="pageNum, iterStat:${pageInfo.navigatepageNums}">
+					<li class="active" th:if="${pageNum} == ${pageInfo.pageNum}">
+						<a href="javascript:void(0);"  th:data-page-num="${pageNum}"  th:onclick="pager_onPageLinkClick(this);"><span th:text="${pageNum}">页码</span></a>
+					</li>
+					<li th:if="${pageNum} != ${pageInfo.pageNum}">
+						<a href="javascript:void(0);"  th:data-page-num="${pageNum}"  th:onclick="pager_onPageLinkClick(this);"><span th:text="${pageNum}">页码</span></a>
+					</li>					
+				</th:block>
+				<li><a href="javascript:void(0);"  th:data-page-num="${pageInfo.nextPage}"  onclick="pager_onPageLinkClick(this);"><span>&raquo;</span></a></li>
+				
+				<li>
+					<div class="pager-page-num-div pull-left" style="line-height: 30px;margin-left: 10px;margin-right: 10px;">
+						<div>
+							<span th:text="${pageInfo.pageNum}">1</span>/<span th:text="${pageInfo.pages}">100</span>页，共<span th:text="${pageInfo.total}">999</span>条
+							<input class="form-control input-sm" type="text" th:value="${pageInfo.pageNum}" style="width: 40px;margin: 0px 0px; display: inline-block;height: 23px;">
+							<button class="btn btn-default  btn-xs" onclick="pager_onPageJumpBtnClick(this);">跳转</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+		</nav>
+		
+		<script type="text/javascript">
+			function pager_onPageLinkClick(linkObj){
+				var actionFuncName = [[${actionFunc}]];
+				var func = eval(actionFuncName);
+				var pageNum = $(linkObj).data("page-num");
+				new func(pageNum);
+			}
+			
+			function pager_onPageJumpBtnClick(btnObj){
+				var pageNum = $(btnObj).prev().val();
+				if(null == pageNum || '' == pageNum){
+					comm_ui_showMessage("请输入页码");
+					return;
+				}
+				
+				var num = parseInt(pageNum);
+				if(isNaN(num)){
+					comm_ui_showMessage("请输入数字");
+					return;
+				}
+				
+				var totalPage = [[${pageInfo.pages}]];
+				if(num > totalPage){
+					num = totalPage;
+				}
+				
+				var actionFuncName = [[${actionFunc}]];
+				var func = eval(actionFuncName);
+				new func(num);
+				return false;
+			}
+		</script>
+		
+	</div>
+</body>
+</html>

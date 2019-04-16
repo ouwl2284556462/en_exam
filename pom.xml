@@ -49,6 +49,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        
+		<!--springsecurity5 要指定3.0以上版本，否则权限标签可能无法工作-->
+		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>		
+        
 		
 		<!-- 热部署 -->
 		<dependency>

@@ -1,5 +1,8 @@
 package exam.user.bean;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 public class UserBean {
 	private Integer id;
 	private String accountName;
@@ -8,6 +11,25 @@ public class UserBean {
 	private String tel;
 	private String identityNum;
 	private String identityType;
+	private Timestamp createTime;
+	
+	private List<SysRoleBean> roles;
+	
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+
+	public List<SysRoleBean> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<SysRoleBean> roles) {
+		this.roles = roles;
+	}
 
 	public Integer getId() {
 		return id;

@@ -1,5 +1,10 @@
 package exam.user.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import exam.user.bean.SysRoleBean;
 import exam.user.bean.UserBean;
 
 public interface UserMapper {
@@ -29,6 +34,16 @@ public interface UserMapper {
 	public void updateUserDtl(UserBean bean);
 
 	public void updateUserPassword(UserBean userBean);
+
+	public void insertSysUserRole(@Param("roleId") Integer roleId, @Param("userId")  Integer userId);
+
+	public List<UserBean> qryUserList(UserBean userBean);
+
+	public void deleteAccount(String[] ids);
+
+	public UserBean findUserById(int id);
+
+	public void updateUserPasswordById(@Param("userId") int userId, @Param("newPassword")  String newPassword);
 
 	
 }

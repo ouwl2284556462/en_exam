@@ -12,6 +12,7 @@ create table account (
   id int not null auto_increment,
   account_name varchar(64) not null,
   password varchar(64) not null,
+  create_time datetime not null,
   primary key (id)
 );
 
@@ -60,6 +61,10 @@ insert into sys_dict_item(group_id, item_id, item_name, sort) values('sex', '2',
 --考点地区
 insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '1', '北京', 1);
 insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '2', '广东', 2);
+
+--角色
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('sys_role', 'admin', '系统管理员', 1);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('sys_role', 'user', '普通用户', 2);
 
 --考试信息表
 create table exam_info (
@@ -140,6 +145,24 @@ create table user_exam_apply(
 	primary key (user_id)
 );
 
+--角色表
+create table sys_role(
+	id int not null auto_increment,
+	name varchar(32) not null,
+	mark varchar(64),
+	primary key (id)
+);
+
+--普通用户角色
+insert into sys_role(id, name, mark) values(1, 'admin', '管理员角色');
+insert into sys_role(id, name, mark) values(2, 'user', '普通用户角色');
+
+--用户-角色关系表
+create table sys_user_role(
+	user_id int not null,
+	role_id int not null,
+	primary key (user_id, role_id)
+);
 
 
 

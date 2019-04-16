@@ -1,0 +1,88 @@
+<div class = "user-manage-wrapper">
+		<div class = "row">
+			<h3 class="col-xs-12 text-primary text-center">用户管理</h3>
+		</div>
+		
+		<div id="user-manage-user-list-div">
+			<div class = "row user-manage-qry-condiction-div">
+				<form id="user-manage-qry-form" class="form-horizontal" th:action="@{/admin/Workspace/qryUserList.do}"  method="post">
+					<input class="form-control" type="hidden"  id="user-manage-qry-form-pageNum" name="pageNum"/>
+				
+					<div class="form-group">
+						<label class="control-label col-sm-2 " for="account">电子邮箱：</label>
+						<div class="col-sm-3" >
+							<input class="form-control" type="text"  id="account" name="accountName" placeholder="" />
+						</div>
+						
+						<label class="control-label col-sm-2 " for="phone">手机号：</label>
+						<div class="col-sm-3 ">
+							<input class="form-control" type="text" id="phone"  name="tel"  title="请填写正确手机号码" />
+						</div>
+						
+						<div class="col-sm-1">
+							<button id="user-manage-qry-list-btn" class="btn btn-primary"  data-loading-text="查询中.." type="submit">查询</button>
+						</div>
+					</div>
+					
+					<!-- 更多条件 -->
+		  			<div class="panel-collapse collapse" id="user-manage-more-condition">
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="identityType">证件类型：</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="identityType"  name="identityType" owl:selectOp owl:enumKey="'identity_type'">
+									<option value="0">test1</option>
+									<option value="1">test2</option>
+								</select>				
+							</div>
+							
+							
+							<label class="control-label  col-sm-2" for="identityNum">证件号码：</label>
+							<div class="col-sm-3">
+								<input class="form-control" type="text" id="identityNum" name="identityNum" />
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="name">姓名：</label>
+							<div class="col-sm-3">
+								<input class="form-control" type="text" id="name" name="name" />
+							</div>
+							
+							<label class="control-label col-sm-2" for="role">角色：</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="role"  name="roles[0].name" owl:selectOp owl:enumKey="'sys_role'">
+									<option value="0">test1</option>
+									<option value="1">test2</option>
+								</select>	
+							</div>
+						</div>	
+		  			</div>
+		  			
+		  			<div class="form-group">
+						<div class="col-sm-2" style="text-align: right;">
+			  				<a id="user-manage-more-condition-link" data-toggle="collapse" href="#user-manage-more-condition"><span id="user-manage-more-condition-text">更多</span><span  id="user-manage-more-condition-icon" class="glyphicon glyphicon-menu-down"></span></a>
+						</div>
+					</div>
+		  			
+				</form>
+			</div>
+			
+			<!-- 查询列表 -->
+	 		<div id="user-manage-user-list-root-div">
+	 		</div>
+ 		</div>
+ 		
+ 		<div id="user-manage-second-page-div">
+ 		</div>
+ 		
+ 		
+ 		
+ 		<script type="text/javascript" th:inline="javascript">
+ 			//加载css
+ 			var css_url = [[@{/static/admin/workspace/css/user_manage.css}]];
+ 			comm_ui_loadCSS(css_url);
+ 		</script>
+ 		
+ 		<script th:src="@{/static/admin/workspace/js/user_mamange.js}"></script>
+</div>
