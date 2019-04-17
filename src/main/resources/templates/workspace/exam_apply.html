@@ -1,11 +1,12 @@
 <div class = "exam-apply-wrapper">
-	<div class="row">
+	<input id="exam_apply-dtl-form-flag" type="hidden" th:value="${from}">
+	<div class="row"  th:if="${from != 'adminChgInfo'}">
 		<h3 class="col-xs-12 text-primary text-center">考试报名</h3>
 	</div>
 		
 	<div class="row exam-apply-content-wrapper">
 		<!-- 报名协议、承诺书 -->
-		<div id = "exam-apply-protocol-div">
+		<div id = "exam-apply-protocol-div"  th:classappend="${from == 'adminChgInfo'} ? 'hidden'">
 		
 			<div class="panel panel-primary exam-apply-protocol-wrapper">
 				<div class="panel-heading panel-title">报名协议</div>
@@ -26,7 +27,7 @@
 					</p>				        
 				</div>
 			</div>			
-
+	
 			<div class="panel panel-primary  exam-apply-protocol-wrapper">
 				<div class="panel-heading">诚信承诺书</div>
 				<div class="panel-body">
@@ -36,7 +37,7 @@
 					        二、本人坚决遵守全国大学英语四、六级考试有关报名规定，不弄虚作假，不伪造、使用假证明、假证书。如有违反，自愿按规定接受处理。<br>
 					        三、本人坚决服从考场工作人员和监考教师管理,自觉遵守考试纪律，考试诚实守信，不违规，不作弊。<br>
 					        四、本人报名时所提供的个人信息是真实、准确、完整的，如因个人信息错误、失真、缺失造成不良后果，责任由本人承担。<br>
-                    </p>					        
+	                   </p>					        
 				</div>
 			</div>
 			
@@ -44,12 +45,11 @@
 				<input id="exam-apply-acceptProtocolBtn" class="btn btn-primary btn-lg" type="button" value="我已阅读并接受准守报名协议及诚信承诺书"/>			
 			</div>
 			
-
+	
 		</div>
 		
 		<!-- 报名表格 -->
-		<div id = "exam-apply-dtl-info-div" class="hidden">
-		
+		<div id = "exam-apply-dtl-info-div" th:classappend="${from != 'adminChgInfo'} ? 'hidden'">
 			<div class="hidden">
 				<form id="exam-apply-headPhotoUploadForm" method="POST" enctype="multipart/form-data">
 				</form>
@@ -57,12 +57,12 @@
 				<a id="exam-apply-confirm-dtl-link" th:href="@{/Workspace/toConfirmExamApplyInfo.do}"></a>
 			</div>
 		
-			<form id="exam-apply-dtl-from" class="form-horizontal" method="post" th:action="@{/Workspace/saveExamApplyInfo.do}">
-			
+			<form id="exam-apply-dtl-from" class="form-horizontal" method="post"  th:data-admin-save-exam-apply-info-url="@{/admin/Workspace/saveExamApplyInfo.do}"  th:action="@{/Workspace/saveExamApplyInfo.do}">
+				<input name="id" type="hidden" th:value="${examApplyInfo?.id}">
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="examId">级别</label>
 					<div class="col-xs-8 col-sm-6">
-						<select class="form-control" id="examId"  name="examInfo.id"  owl:selectOp owl:enumList="${examList}" owl:require="'true'">
+						<select class="form-control" id="examId"  name="examInfo.id"  owl:selectOp owl:enumList="${examList}" owl:require="'true'"  owl:defaultVal="${examApplyInfo?.examInfo?.id}" >
 							<option value="0">选项1</option>
 							<option value="1">选项2</option>
 						</select>		
@@ -72,7 +72,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="examRegion">考点地区</label>
 					<div class="col-xs-8 col-sm-6">
-						<select class="form-control" id="exam-apply-examRegion"  owl:selectOp owl:enumKey="'exam_place_region'" owl:require="'true'">
+						<select class="form-control" id="exam-apply-examRegion" owl:selectOp owl:enumKey="'exam_place_region'" owl:require="'true'"  owl:defaultVal="${examApplyInfo?.examPlace?.region}">
 							<option value="0">选项1</option>
 							<option value="1">选项2</option>
 						</select>							
@@ -82,7 +82,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="examPlaceId">考点名称</label>
 					<div class="col-xs-8 col-sm-6">
-						<select class="form-control" id="exam-apply-examPlaceId" th:data-get-data-url="@{/Workspace/getExamPlaceByRegionId.do}" name="examPlace.id"  owl:selectOp owl:enumList="${examPlaceIdList}" owl:require="'true'">
+						<select class="form-control" id="exam-apply-examPlaceId" th:data-get-data-url="@{/Workspace/getExamPlaceByRegionId.do}" name="examPlace.id"  owl:selectOp owl:enumList="${examPlaceIdList}" owl:require="'true'"  owl:defaultVal="${examApplyInfo?.examPlace?.id}"  >
 							<option value="0">选项1</option>
 							<option value="1">选项2</option>
 						</select>							
@@ -95,28 +95,29 @@
 					<div class="col-xs-8 col-sm-6">
 	                    <div class="img-thumbnail exam-apply-head-photo-wrapper">
 	                    	<label for="exam-apply-photoFile">
-	                        	<img id="exam-apply-photoFile-img" th:src="@{/static/images/default_img.jpg}" alt="个人照片"  width="110px;" height="140px;" />
+	                        	<img th:if="${examApplyInfo.photeUrl == null or examApplyInfo.photeUrl == ''}" id="exam-apply-photoFile-img" th:src="@{/static/images/default_img.jpg}" alt="个人照片"  width="110px;" height="140px;" />
+	                        	<img th:if="${examApplyInfo.photeUrl != null and examApplyInfo.photeUrl != ''}" id="exam-apply-photoFile-img" th:src="${examApplyInfo.photeUrl}" alt="个人照片"  width="110px;" height="140px;" />
 	                    	</label>
 							<input class="hidden" type="file" id="exam-apply-photoFile" th:data-upload-url="@{/Workspace/uploadHeadPhoto.do}">
 	                    </div>
 						<span class="help-block">提示：本人免冠正面证件照片，文件大小1M以内</span>
 					</div>
 					
-					<input type="hidden" name="photeUrl" id="exam-apply-photeUrl">
+					<input type="hidden" name="photeUrl" id="exam-apply-photeUrl" th:value="${examApplyInfo?.photeUrl}">
 				</div>					
 	
 				
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="name">姓名</label>
 					<div class="col-xs-8 col-sm-6">
-						<input class="form-control" type="text" required id="name" name="name"  th:value="${userBean.name}" placeholder="" />
+						<input class="form-control" type="text" required id="name" name="name"  th:value="${examApplyInfo?.name}" placeholder="" />
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1  required" for="nameSpell">拼音</label>
 					<div class="col-xs-8 col-sm-6">
-						<input class="form-control" type="text" required id="nameSpell" name="nameSpell"  placeholder="" />
+						<input class="form-control" type="text" required id="nameSpell" name="nameSpell"  th:value="${examApplyInfo?.nameSpell}"  placeholder="" />
 					</div>
 				</div>	
 				
@@ -125,14 +126,14 @@
 					<div class="col-xs-8 col-sm-6">
 						<div class="radio-inline">
 							<label>
-								<input type="radio" checked="checked" name="sex" value="1">
+								<input type="radio" th:attr ="checked=${(examApplyInfo.sex == '1' or examApplyInfo.sex == null)?true:false}" name="sex" value="1">
 								男
 							</label>
 						</div>	
 						
 						<div class="radio-inline">
 							<label>
-								<input type="radio" name="sex"  value="2">
+								<input type="radio"  th:attr ="checked=${examApplyInfo.sex == '2'?true:false}"   name="sex"  value="2">
 								女
 							</label>
 						</div>	
@@ -142,7 +143,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="country">国籍</label>
 					<div class="col-xs-8 col-sm-6">
-						<select class="form-control" id="country"  name="country"  owl:selectOp owl:enumKey="'country_code'" owl:require="'true'">
+						<select class="form-control" id="country"  name="country"  owl:selectOp owl:enumKey="'country_code'" owl:require="'true'"  owl:defaultVal="${examApplyInfo?.country}" >
 							<option value="0">选项1</option>
 							<option value="1">选项2</option>
 						</select>							
@@ -152,7 +153,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityType">证件类型</label>
 					<div class="col-xs-8 col-sm-6">
-						<select class="form-control" id="identityType"  name="identityType" owl:selectOp owl:enumKey="'identity_type'" owl:require="'true'"  owl:defaultVal="${userBean.identityType}" >
+						<select class="form-control" id="identityType"  name="identityType" owl:selectOp owl:enumKey="'identity_type'" owl:require="'true'"  owl:defaultVal="${examApplyInfo?.identityType}" >
 							<option value="0">test1</option>
 							<option value="1">test2</option>
 						</select>							
@@ -162,20 +163,29 @@
 				<div class="form-group">
 					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="identityNum">证件号码</label>
 					<div class="col-xs-8 col-sm-6">
-						<input class="form-control" type="text" required id="identityNum"  th:value="${userBean.identityNum}"  name="identityNum" />
+						<input class="form-control" type="text" required id="identityNum"  th:value="${examApplyInfo?.identityNum}"  name="identityNum" />
 					</div>
 				</div>		
 				
 				<div class="form-group">
-					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for=birthday>出生日期</label>
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1 required" for="birthday">出生日期</label>
 					<div class="col-xs-8 col-sm-6">
-						<input class="form-control" type="date" required id="birthday" name="birthday" />
+						<input class="form-control" type="date" required id="birthday" name="birthday"   th:value="${#dates.format(examApplyInfo?.birthday, 'yyyy-MM-dd')}" />
 					</div>
 				</div>	
 				
+				<div th:if="${from == 'adminChgInfo'}" class="form-group">
+					<label class="control-label col-xs-3 col-sm-2 col-sm-offset-1" for="score">分数</label>
+					<div class="col-xs-8 col-sm-6">
+						<input class="form-control" type="number" id="score" name="examScore.score" th:value="${examApplyInfo?.examScore?.score}" />
+					</div>
+				</div>					
+				
 	
 				<div class="form-group text-center exam-apply-dtl-from-submitBtn-wrapper">
-					<button id="exam-apply-dtl-from-submitBtn"  type="submit" class="btn btn-primary" data-loading-text="处理中..">提交</button>
+					<button  th:if="${readonly == null or !readonly}"  id="exam-apply-dtl-from-submitBtn"  type="submit" class="btn btn-primary" data-loading-text="处理中..">提交</button>
+					
+					<button  th:if="${from == 'adminChgInfo'}" id="exam-apply-dtl-from-returnBtn"   class="btn btn-primary" >返回</button>
 				</div>
 			</form>
 		

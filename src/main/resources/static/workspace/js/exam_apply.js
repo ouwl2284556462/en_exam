@@ -2,16 +2,44 @@ $(function(){
 	$("#exam-apply-acceptProtocolBtn").click(exam_apply_onAcceptProtocolBtnClick);
 	
 	$("#exam-apply-photoFile").change(exam_apply_onPhotoFileChange);
-	
 	$("#exam-apply-examRegion").change(exam_apply_onExamRegionChange);
+	
+	$("#exam-apply-dtl-from-returnBtn").click(exam_apply_dtl_onReturnBtnClick);
+	
 	
 	$("#exam-apply-dtl-from").on('submit', exam_apply_onExamApplyDtlFormSubmit);
 	
 });
 
+function exam_apply_dtl_onReturnBtnClick(){
+	exam_apply_checkAndChgToManageStudentList();
+	return false;
+}
+
+function exam_apply_dtl_isFromAdminChgInfo(){
+	return $("#exam_apply-dtl-form-flag").val() == 'adminChgInfo';
+}
+
+function exam_apply_checkAndChgToManageStudentList(){
+	if(!exam_apply_dtl_isFromAdminChgInfo()){
+		return;
+	}
+	
+	comm_ui_show($("#student-manage-list-div"));
+	$("#student-manage-second-page-div").empty();
+}
+
 function exam_apply_onExamApplyDtlFormSubmit(){
 	if($("#exam-apply-photeUrl").val() == ""){
 		comm_ui_showMessage("请上传照片。");
+		return false;
+	}
+	
+	if(exam_apply_dtl_isFromAdminChgInfo()){
+		var submitForm = $("#exam-apply-dtl-from");
+		var adminUrl = submitForm.data("admin-save-exam-apply-info-url");
+		submitForm.attr("action", adminUrl);
+		exam_apply_onExamInfoConfirmOk();
 		return false;
 	}
 	
@@ -39,6 +67,7 @@ function exam_apply_onExamApplyDtlFormSubmit(){
 	return false;
 }
 
+
 function exam_apply_onExamInfoConfirmOk(){
 	var param = {};
 	param.submitBtnId = "exam-apply-dtl-from-submitBtn";
@@ -49,8 +78,12 @@ function exam_apply_onExamInfoConfirmOk(){
 				return;
 			}
 			
-			comm_ui_showMessage("报名成功");
-			$("#main-side-nav-exam-apply-link").click();
+			if(exam_apply_dtl_isFromAdminChgInfo()){
+				comm_ui_showMessage("修改成功");
+			}else{
+				comm_ui_showMessage("报名成功");
+				$("#main-side-nav-exam-apply-link").click();
+			}
 		}
 	}
 	

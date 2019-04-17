@@ -47,7 +47,7 @@
  	<table class="table table-responsive table-bordered">
     	<tbody>
     		<tr>
-    			<td class=" text-center col-xs-1  exam-ticket-name-center" rowspan="2">姓名</td>
+    			<td class=" text-center col-xs-1  exam-ticket-name-center" rowspan="2" style="line-height: 50px !important;">姓名</td>
     			<td class=" text-center col-xs-1">中文</td>
     			<td class=" text-center col-xs-6" th:text="${examApplyInfo.name}"></td>
 				<td class=" text-center col-xs-2">性别</td>
@@ -63,8 +63,8 @@
     		<tr>
     			<td class=" text-center" colspan="2">证件类型</td>
     			<td class=" text-center" owl:enumVal="${examApplyInfo.identityType}" owl:enumKey="'identity_type'"></td>
-				<td class=" text-center exam-ticket-birthday-center" rowspan="2">出生日期</td>
-    			<td class=" text-center exam-ticket-birthday-center" rowspan="2" th:text="${examApplyInfo.birthday}"></td>
+				<td class=" text-center exam-ticket-birthday-center" rowspan="2" style="line-height: 50px !important;">出生日期</td>
+    			<td class=" text-center exam-ticket-birthday-center" rowspan="2" style="line-height: 50px !important;" th:text="${examApplyInfo.birthday}"></td>
     		</tr>   
     		<tr>
     			<td class=" text-center" colspan="2">证件号码</td>
@@ -74,9 +74,9 @@
 	</table>
 	
 	<div class = "row">
-		<div class="exam-ticket-tips-wrapper col-xs-11">
+		<div class="exam-ticket-tips-wrapper col-xs-11" style="margin-left: 30px;">
 			<p>重要提示：</p>
-			<ul class="exam-ticket-tips-ul">
+			<ul class="exam-ticket-tips-ul" style="list-style:disc;margin-left: 50px;">
 				<li>本提示只限于对《考生须知》中的重点进行提示。考生在本网站报名时，已经点击“同意”本网站公布的包括《考生须知》在内的所有政策和规定。在此特题型考生必须阅读网站《考生须知》。</li>
 				<li>考生在考试日必须携带物品：本人准考证、有效身份证件（证件类型与证件号码必须与本准考证打印信息一致）、2B或HB铅笔和橡皮。</li>
 				<li>禁止考生携带手机等任何电子器件，如发现按违规处理。</li>
@@ -86,8 +86,6 @@
 
 
 	<script type="text/javascript" th:inline="javascript">
-		//加载css
-		var css_url = [[@{/static/workspace/css/exam-tick.css}]];
-		comm_ui_loadCSS(css_url);
 	</script>
+	
 </div>

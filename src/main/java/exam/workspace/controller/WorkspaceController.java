@@ -110,7 +110,12 @@ public class WorkspaceController {
 		//个人信息
 		String acctName = principal.getName();
 		UserBean userBean = userService.findUserByAcctName(acctName);
-		model.addAttribute("userBean", userBean);
+		examApplyInfo = new ExamApplyInfoBean();
+		examApplyInfo.setName(userBean.getName());
+		examApplyInfo.setIdentityNum(userBean.getIdentityNum());
+		examApplyInfo.setIdentityType(userBean.getIdentityType());
+		model.addAttribute("examApplyInfo", examApplyInfo);
+		
 		return "workspace/exam_apply";
 	}
 	

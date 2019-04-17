@@ -18,7 +18,16 @@ public class ExamApplyInfoBean {
 	
 	private ExamInfoBean examInfo;
 	private ExamPlaceBean examPlace;
+	private ExamScoreBean examScore;
 	
+	public ExamScoreBean getExamScore() {
+		return examScore;
+	}
+
+	public void setExamScore(ExamScoreBean examScore) {
+		this.examScore = examScore;
+	}
+
 	public String getExamIdCode() {
 		if(code == null) {
 			return null;

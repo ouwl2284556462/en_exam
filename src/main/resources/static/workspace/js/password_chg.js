@@ -61,3 +61,6 @@ function password_chg_onPasswordChgFormSubmit(){
 	comm_Ajax_submitForm("password-chg-from", param);
 	return false;
 }
+
+
+

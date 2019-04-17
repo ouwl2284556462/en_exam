@@ -1,0 +1,132 @@
+<div class = "exam-statistics-wrapper">
+		<div class = "row">
+			<h3 class="col-xs-12 text-primary text-center">统计管理</h3>
+		</div>
+		
+		<div class="exam-statistics-content-div row">
+
+			<ul class="nav nav-tabs">
+				<li class="active"><a id="exam-statistics-score-link" href="#exam-statistics-score" data-toggle="tab">成绩统计</a></li>
+				<li><a id="exam-statistics-region-link" href="#exam-statistics-region" data-toggle="tab">地区统计</a></li>
+			</ul>
+		
+			<!-- 选项卡面板 -->
+			<div class="tab-content exam-statistics-tab-content">
+				<!-- 成绩统计 -->
+			    <div class="tab-pane active" id="exam-statistics-score">
+			    
+					<form id="exam-statistics-score-tab-form" class="form-horizontal" th:action="@{/admin/Workspace/statisticsScore.do}"  method="post">
+						<div class="form-group">
+							<label class="control-label col-sm-2 " for="phone">场次：</label>
+							<div class="col-sm-3 ">
+								<select class="form-control" id="exam-statistics-score-tab-examId"  name="examId"  owl:selectOp owl:enumList="${examList}" owl:require="'true'">
+									<option value="0">选项1</option>
+									<option value="1">选项2</option>
+								</select>
+							</div>
+						</div>
+					</form>
+					
+					
+					<div class = "exam-statistics-table-div">
+						<table class="table table-responsive table-bordered">
+							<thead>
+								<tr>
+									<th class=" text-center">分数范围</th>								
+									<th class=" text-center">0-100</th>
+									<th class=" text-center">100-200</th>
+									<th class=" text-center">200-300</th>
+									<th class=" text-center">300-400</th>
+									<th class=" text-center">400-500</th>
+									<th class=" text-center">500-600</th>
+									<th class=" text-center">600-700</th>
+									<th class=" text-center">700以上</th>
+								</tr>
+							</thead>
+					    	<tbody>
+					    		<tr>
+						    		<td class=" text-center">人数</td>
+					    			<td class=" text-center" id="exam-statistics-score-range1"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range2"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range3"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range4"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range5"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range6"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range7"></td>
+					    			<td class=" text-center" id="exam-statistics-score-range8"></td>
+					    		</tr>  
+					    		
+					    	</tbody>
+						</table>  
+					</div>  
+					
+				  <!-- 图标显示位置 -->
+				 <div id="exam-statistics-score-tab-char" class="exam-statistics-chart-div col-xs-12 "  style="height:400px;"></div>
+					
+			    </div>
+			    
+			    <!-- 地区统计 -->
+			    <div class="tab-pane " id="exam-statistics-region">
+					<div class="tab-pane " id="#exam-statistics-region">
+					<form id="exam-statistics-region-tab-form" class="form-horizontal" th:action="@{/admin/Workspace/statisticsRegion.do}"  method="post">
+						<div class="form-group">
+							<label class="control-label col-sm-2 " for="phone">场次：</label>
+							<div class="col-sm-3 ">
+								<select class="form-control" id="exam-statistics-region-tab-examId"  name="examId"  owl:selectOp owl:enumList="${examList}" owl:require="'true'">
+									<option value="0">选项1</option>
+									<option value="1">选项2</option>
+								</select>
+							</div>
+						</div>
+					</form>
+					
+					
+					<div  class = "exam-statistics-table-div">
+						<table class="table table-responsive table-bordered">
+							<thead>
+								<tr>
+									<th class=" text-center">地区</th>								
+									<th class=" text-center">北京</th>
+									<th class=" text-center">广东</th>
+									<th class=" text-center">四川</th>
+									<th class=" text-center">湖南</th>
+									<th class=" text-center">上海</th>
+									<th class=" text-center">辽宁</th>
+								</tr>
+							</thead>
+					    	<tbody>
+					    		<tr>
+					    			<td class=" text-center">人数</td>
+					    			<td class=" text-center" id="exam-statistics-region1"></td>
+					    			<td class=" text-center" id="exam-statistics-region2"></td>
+					    			<td class=" text-center" id="exam-statistics-region3"></td>
+					    			<td class=" text-center" id="exam-statistics-region4"></td>
+					    			<td class=" text-center" id="exam-statistics-region5"></td>
+					    			<td class=" text-center" id="exam-statistics-region6"></td>					    								    			
+					    		</tr>  
+					    		
+					    	</tbody>
+						</table>  
+					</div>
+			    
+			    </div>
+			    
+				  <!-- 图标显示位置 -->
+				 <div id="exam-statistics-region-tab-char" class="exam-statistics-chart-div col-xs-12 "  style="height:400px;"></div>
+			</div>		
+
+		</div>
+		
+		
+
+ 		
+ 		<script th:src="@{/static/common/js/echarts.js}"></script>
+ 		<script type="text/javascript" th:inline="javascript">
+ 			//加载css
+ 			var css_url = [[@{/static/admin/workspace/css/exam_statistics.css}]];
+ 			comm_ui_loadCSS(css_url);
+ 		</script>
+ 		
+ 		<script th:src="@{/static/admin/workspace/js/exam_statistics.js}"></script>
+ 		
+</div>

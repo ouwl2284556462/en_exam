@@ -1,0 +1,104 @@
+<div class = "student-manage-wrapper">
+		<div class = "row">
+			<h3 class="col-xs-12 text-primary text-center">考生管理</h3>
+		</div>
+		
+		<div id="student-manage-list-div" class="student-manage-list-div">
+			<div class = "row student-manage-qry-condiction-div">
+				<form id="student-manage-qry-form" class="form-horizontal" th:action="@{/admin/Workspace/qryExamList.do}"  method="post">
+					<input class="form-control" type="hidden"  id="student-manage-qry-form-pageNum" name="pageNum"/>
+				
+					<div class="form-group">
+						<label class="control-label col-sm-2 " for="code">准考证号：</label>
+						<div class="col-sm-3" >
+							<input class="form-control" type="text"  id="code" name="code" placeholder="" />
+						</div>
+						
+						<label class="control-label col-sm-2 " for="phone">场次：</label>
+						<div class="col-sm-3 ">
+							<select class="form-control" id="examId"  name="examId"  owl:selectOp owl:enumList="${examList}">
+								<option value="0">选项1</option>
+								<option value="1">选项2</option>
+							</select>
+						</div>
+						
+						<div class="col-sm-1">
+							<button id="student-manage-qry-list-btn" class="btn btn-primary"  data-loading-text="查询中.." type="submit">查询</button>
+						</div>
+					</div>
+					
+					<!-- 更多条件 -->
+		  			<div class="panel-collapse collapse" id="student-manage-more-condition">
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="identityType">证件类型：</label>
+							<div class="col-sm-3">
+								<select class="form-control" id="identityType"  name="identityType" owl:selectOp owl:enumKey="'identity_type'">
+									<option value="0">test1</option>
+									<option value="1">test2</option>
+								</select>				
+							</div>
+							
+							
+							<label class="control-label  col-sm-2" for="identityNum">证件号码：</label>
+							<div class="col-sm-3">
+								<input class="form-control" type="text" id="identityNum" name="identityNum" />
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="name">姓名：</label>
+							<div class="col-sm-3">
+								<input class="form-control" type="text" id="name" name="name" />
+							</div>
+							
+							<label class="control-label col-sm-2" for="role">地区：</label>
+							<div class="col-sm-3">
+								<select class="form-control" name="examRegion"  owl:selectOp owl:enumKey="'exam_place_region'">
+									<option value="0">选项1</option>
+									<option value="1">选项2</option>
+								</select>	
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="name">报考起止时间：</label>
+							<div class="col-sm-3">
+								<input class="form-control" type="date" id="applyStartDate" name="applyStartDate" />
+							</div>
+							
+							<label class="control-label col-sm-2" for="role">报考终止时间：</label>
+							<div class="col-sm-3">
+								<input class="form-control" type="date" id="applyEndDate" name="applyEndDate" />	
+							</div>
+						</div>	
+		  			</div>
+		  			
+		  			<div class="form-group">
+						<div class="col-sm-2" style="text-align: right;">
+			  				<a id="student-manage-more-condition-link" data-toggle="collapse" href="#student-manage-more-condition"><span id="student-manage-more-condition-text">更多</span><span  id="student-manage-more-condition-icon" class="glyphicon glyphicon-menu-down"></span></a>
+						</div>
+					</div>
+		  			
+				</form>
+			</div>
+			
+			<!-- 查询列表 -->
+	 		<div id="student-manage-list-root-div">
+	 		</div>
+ 		</div>
+ 		
+ 		<div id="student-manage-second-page-div">
+ 		</div>
+ 		
+ 		
+ 		
+ 		<script type="text/javascript" th:inline="javascript">
+ 			//加载css
+ 			var css_url = [[@{/static/admin/workspace/css/student_manage.css}]];
+ 			comm_ui_loadCSS(css_url);
+ 		</script>
+ 		
+ 		<script th:src="@{/static/admin/workspace/js/student_manage.js}"></script>
+</div>

@@ -1,0 +1,30 @@
+<div class="import-score-wrapper">
+	<div class = "row">
+		<h3 class="col-xs-12 text-primary text-center">导入成绩</h3>
+	</div>
+
+	<div class="import-score-form-wrapper">
+			<form id="import-score-Form"  class="form-horizontal" enctype="multipart/form-data" th:action="@{/admin/Workspace/importScore.do}" method="post">
+				<div class="form-group">
+					<label class="control-label col-sm-2 col-sm-offset-1 required" for="import-score-importFile">导入文件</label>
+					<div class="col-sm-6">
+						<input class="form-control" type="file" required id="import-score-importFile" name="file" placeholder="" />
+						<span class="help-block"><a th:href="@{/admin/Workspace/downloadImportScoreTemplate.do}">下载导入模板</a></span>
+					</div>
+				</div>
+	
+				<div class="form-group create-account-submit-btn-div  text-center">
+					<button id="import-score-SubmitBtn" type="submit" class="btn btn-primary" data-loading-text="处理中..">导入</button>
+				</div>
+			</form>
+	</div>  		  		   		
+    		
+	
+ 		<script type="text/javascript" th:inline="javascript">
+ 			//加载css
+ 			var css_url = [[@{/static/admin/workspace/css/import_score.css}]];
+ 			comm_ui_loadCSS(css_url);
+ 		</script>
+ 		
+ 		<script th:src="@{/static/admin/workspace/js/import_score.js}"></script>	
+</div>

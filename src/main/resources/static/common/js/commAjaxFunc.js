@@ -20,40 +20,50 @@ function comm_Ajax_submitForm(formId, param){
 	
 	var fromObj = $("#" + formId);
 	//将表单数据表单序列化
-	var formParam = fromObj.serialize();
+	var formParam;
+	if(!param.isUploadFile){
+		formParam = fromObj.serialize();
+	}else{
+		formParam = new FormData(fromObj[0]);
+	}
 	
 	var url = fromObj.attr("action");
+	var ajaxParam = {url: url, 
+					data: formParam, 
+					type: "POST",
+				    beforeSend: function(xhr){
+				    	__comm_Ajax_setCsrfRequestHeader(xhr);
+				    },
+				    success: function(result){
+						//解除禁用
+						if(submitBtnObj != null){
+							submitBtnObj.button('reset');
+						}
+						if(param.callback != null){
+							param.callback(true, result);
+						}
+				    },
+				    error : function(xhr,status,error){
+				    	comm_ui_showMessage("请求出错");
+				    	if(param.callback != null){
+							param.callback(false, null);
+						}  
+				    },
+				    complete: function(xhr, status){
+				    	//解除禁用
+						if(submitBtnObj != null){
+							submitBtnObj.button('reset');
+						}  	
+				    }
+				};
 	
-
 	
-	$.ajax({url: url, 
-		data: formParam, 
-		type: "POST",
-	    beforeSend: function(xhr){
-	    	__comm_Ajax_setCsrfRequestHeader(xhr);
-	    },
-	    success: function(result){
-			//解除禁用
-			if(submitBtnObj != null){
-				submitBtnObj.button('reset');
-			}
-			if(param.callback != null){
-				param.callback(true, result);
-			}
-	    },
-	    error : function(xhr,status,error){
-	    	comm_ui_showMessage("请求出错");
-	    	if(param.callback != null){
-				param.callback(false, null);
-			}  
-	    },
-	    complete: function(xhr, status){
-	    	//解除禁用
-			if(submitBtnObj != null){
-				submitBtnObj.button('reset');
-			}  	
-	    }
-	});
+	if(param.isUploadFile){
+		ajaxParam.processData = false;
+		ajaxParam.contentType = false;
+	}
+	
+	$.ajax(ajaxParam);
 }
 
 

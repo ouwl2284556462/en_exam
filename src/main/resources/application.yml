@@ -8,11 +8,11 @@ spring:
   servlet:
      multipart:
         max-file-size: 5MB
-        
        
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml
+  
   
 
 #文件保存位置   imagesPath和imagesFilePath路径要保持一致
@@ -20,6 +20,10 @@ user:
    imagesPath: file:C:/Users/Qin/Desktop/图片位置/
    imagesFilePath: C:/Users/Qin/Desktop/图片位置/
   
+#导入成绩模板文件
+exam:
+   importScoreTemplateFilePath: C:/Users/Qin/Desktop/
+   importScoreTemplateFileName: scoreImport.xlsx
 #security:
 #   basic:
 #      enabled: false

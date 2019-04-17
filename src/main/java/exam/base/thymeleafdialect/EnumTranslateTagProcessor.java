@@ -66,7 +66,12 @@ public class EnumTranslateTagProcessor extends AbstractAttributeTagProcessor {
 			return null;
 		}
 		
-		return (String) parser.parseExpression(context, input).execute(context);
+		Object value = parser.parseExpression(context, input).execute(context);
+		if(value == null) {
+			return null;
+		}
+		
+		return String.valueOf(value);		
 	}
 
 }

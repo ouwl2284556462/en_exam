@@ -32,3 +32,11 @@
 	color: #337ab7;
 }
 
+.side-nav-item-more-icon{
+	float: right;
+	margin-right: 5%;
+}
+
+.second-nav{
+	margin-left: 20%;
+}

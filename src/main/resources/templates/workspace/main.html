@@ -38,8 +38,16 @@
 	  				<ul sec:authorize="hasAnyAuthority('admin')"  class="side-nav">
 	  					<li><a  href="javascript:void(0);" th:data-tar-link="@{/Workspace/toCurUserInfo.do}" class="side-nav-link main-side-nav-click-chg-page-link"><span class="glyphicon glyphicon-user side-nav-icon"></span>个人资料</a></li>
 	  					<li><a  href="javascript:void(0);" th:data-tar-link="@{/Workspace/toChgCurUserPassword.do}" class="side-nav-link main-side-nav-click-chg-page-link"><span class="glyphicon glyphicon-edit side-nav-icon"></span>修改密码</a></li>
+	  					<li><a  data-toggle="collapse" href="#main-side-nav-student-manage-more"  class="side-nav-link"><span class="glyphicon glyphicon-tags side-nav-icon"></span>考生管理<span  id="main-side-nav-student-more" class="glyphicon glyphicon-menu-down side-nav-item-more-icon"></span></a></li>
+	  					<li class="panel-collapse collapse" id="main-side-nav-student-manage-more">
+	  						<ul class="second-nav">
+	  							<li><a  href="javascript:void(0);" th:data-tar-link="@{/admin/Workspace/toStudentManager.do}" class="side-nav-link main-side-nav-click-chg-page-link">考生查询</a></li>
+	  							<li><a  href="javascript:void(0);" th:data-tar-link="@{/admin/Workspace/toImportScore.do}" class="side-nav-link main-side-nav-click-chg-page-link">导入成绩</a></li>
+	  							<li><a  href="javascript:void(0);" th:data-tar-link="@{/admin/Workspace/toExamStatistics.do}" class="side-nav-link main-side-nav-click-chg-page-link">统计管理</a></li>
+	  						</ul>
+	  					</li>
+	  					
 	  					<li><a  href="javascript:void(0);" th:data-tar-link="@{/admin/Workspace/toUserManage.do}"  class="side-nav-link  main-side-nav-click-chg-page-link"><span class="glyphicon glyphicon-glass side-nav-icon"></span>用户管理</a></li>
-	  					<li><a  href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-tags side-nav-icon"></span>考生管理</a></li>
 	  					<li><a id="main-side-nav-logout-link" href="javascript:void(0);" class="side-nav-link"><span class="glyphicon glyphicon-log-out side-nav-icon"></span>退出系统</a></li>
 	  				</ul>
 	  			</div>

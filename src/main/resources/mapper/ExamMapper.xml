@@ -22,6 +22,14 @@
 		<result column="mark" property="mark" jdbcType="VARCHAR"/>
 	</resultMap>	
 	
+	<resultMap type="exam.examination.bean.ExamScoreBean" id="ExamScoreBeanResultMap">
+		<id column="exam_apply_id" property="examApplyId" jdbcType="INTEGER"/>
+		<result column="score" property="score" jdbcType="INTEGER"/>
+		<result column="operator_id" property="operatorId" jdbcType="INTEGER"/>
+		<result column="op_time" property="opTime" jdbcType="TIMESTAMP"/>
+		<result column="mark" property="mark" jdbcType="VARCHAR"/>	
+	</resultMap>
+	
 	<resultMap type="exam.examination.bean.ExamApplyInfoBean" id="ExamApplyInfoResultMap">
 		<id column="id" property="id" jdbcType="INTEGER"/>
 		<result column="CODE" property="code" jdbcType="VARCHAR"/>
@@ -42,7 +50,31 @@
 		<association property="examPlace" column="place_id"  javaType="exam.examination.bean.ExamPlaceBean" select="getExamPlaceById">
 		</association>		
 		
+		<association property="examScore" column="id"  javaType="exam.examination.bean.ExamScoreBean" select="findExamScoreById">
+		</association>			
 	</resultMap>
+	
+	
+	<resultMap type="exam.examination.bean.ExamApplyInfoBean" id="ExamApplyInfoNestResultMap">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="CODE" property="code" jdbcType="VARCHAR"/>
+		<result column="photo_url" property="photeUrl" jdbcType="VARCHAR"/>
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="name_spell" property="nameSpell" jdbcType="VARCHAR"/>
+		<result column="identity_num" property="identityNum" jdbcType="VARCHAR"/>
+		<result column="identity_type" property="identityType" jdbcType="VARCHAR"/>
+		<result column="sex" property="sex" jdbcType="VARCHAR"/>
+		<result column="country" property="country" jdbcType="VARCHAR"/>
+		<result column="birthday" property="birthday" jdbcType="DATE"/>
+		<result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
+		
+		<association property="examInfo" resultMap="ExamInfoBeanResultMap"  javaType="exam.examination.bean.ExamInfoBean"></association> 
+		
+		<association property="examPlace" resultMap="ExamPlaceBeanResultMap"  javaType="exam.examination.bean.ExamPlaceBean"></association>
+		
+		<association property="examScore" resultMap="ExamScoreBeanResultMap"  javaType="exam.examination.bean.ExamScoreBean"></association>  
+	</resultMap>	
+	
 	
 	
 	
@@ -82,6 +114,14 @@
 			t.birthday,
 			t.apply_time
 	</sql>
+	
+	<sql id="examScoreAllField">
+			exam_apply_id,
+			score,
+			operator_id,
+			op_time,
+			mark
+	</sql>	
 	
 	<select id="findExamInfosByState" resultMap="ExamInfoBeanResultMap">
 			SELECT
@@ -124,6 +164,15 @@
 				region = #{regionId}
 			order by id
 	</select>	
+	
+	<select id="findExamScoreById"  resultMap="ExamScoreBeanResultMap">
+		SELECT
+			<include refid="examScoreAllField"></include>
+		FROM
+			exam_score
+		WHERE
+			exam_apply_id = #{applyId}	
+	</select>
 	
 	
 	<insert id="insertExamApplyInfo"  useGeneratedKeys="true" keyProperty="id"  parameterType="exam.examination.bean.ExamApplyInfoBean">
@@ -178,4 +227,166 @@
 			t.id = u.exam_apply_id
 		AND u.user_id = #{userId}
 	</select>
+	
+	<select id="findExamApplyById"  resultMap="ExamApplyInfoResultMap">
+		SELECT
+			<include refid="examApplyInfoAllField"></include>
+		FROM
+			exam_apply_info t
+		WHERE
+			t.id = #{applyId}
+	</select>	
+	
+	<insert id="saveExamScore" parameterType="exam.examination.bean.ExamScoreBean">
+		INSERT INTO exam_score (
+			exam_apply_id,
+			score,
+			operator_id,
+			op_time,
+			mark
+		)
+		VALUES
+			(#{examApplyId}, 
+			 #{score}, 
+			 #{operatorId}, 
+			 now(),
+			 #{mark}
+			 )
+		 ON DUPLICATE KEY UPDATE 
+		    score = #{score},
+			operator_id = #{operatorId},
+			mark = #{mark},
+			op_time = now()
+	
+	</insert>
+	
+	
+	<update id="updateExamApplyInfo" parameterType="exam.examination.bean.ExamApplyInfoBean">
+			UPDATE exam_apply_info
+			SET exam_id = #{examInfo.id},
+			 place_id = #{examPlace.id},
+			 photo_url = #{photeUrl},
+			 NAME = #{name},
+			 name_spell = #{nameSpell},
+			 identity_num = #{identityNum},
+			 identity_type = #{identityType},
+			 sex = #{sex},
+			 country = #{country},
+			 birthday = #{birthday}
+			WHERE
+				id = #{id}
+	</update>
+	
+	
+	<select id="findExamListByMultiCondi" resultMap="ExamApplyInfoNestResultMap" parameterType="exam.examination.bean.ExamSearch">
+		SELECT
+			e.id,
+			e.CODE,
+			e.exam_id,
+			e.place_id,
+			e.photo_url,
+			e.NAME,
+			e.name_spell,
+			e.identity_num,
+			e.identity_type,
+			e.sex,
+			e.country,
+			e.birthday,
+			e.apply_time,
+			a.account_name,
+			a.id,
+			a.create_time,
+			es.score,
+			ep.region,
+			ep.name,
+			ep.id,
+			ei.exam_name
+		FROM
+			exam_apply_info e
+		INNER JOIN user_exam_apply ue ON ue.exam_apply_id = e.id
+		LEFT JOIN account a ON a.id = ue.user_id
+		left join exam_info ei on ei.id = e.exam_id
+		left join exam_score es on es.exam_apply_id = e.id
+		left join exam_place ep on e.place_id = ep.id
+		<where>
+			<if test="id != null">
+				and e.id = #{id}
+			</if>
+			
+			<if test="examId != null">
+				and e.exam_id = #{examId}
+			</if>
+			
+			<if test="identityType != null and identityType != '' ">
+				and e.identity_type = #{identityType}
+			</if>
+			
+			<if test="identityNum != null and identityNum != '' ">
+				and e.identity_num = #{identityNum}
+			</if>			
+			
+			<if test="name != null and name != '' ">
+				and e.NAME = #{name}
+			</if>	
+			
+			<if test="examRegion != null and examRegion != '' ">
+				and ep.region = #{examRegion}
+			</if>	
+			
+			<if test="applyStartDate != null">
+				and e.apply_time  &gt;=  #{applyStartDate}
+			</if>
+			
+			<if test="applyEndDate != null">
+				and e.apply_time  &lt;=  #{applyEndDate}
+			</if>					
+		
+		</where>
+	</select>
+	
+
+	<delete id="deleteExamApplyInfo"  parameterType="int[]">
+		delete from exam_apply_info where id in
+		<foreach collection="array" item = "id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteUserExam"  parameterType="int[]">
+		delete from user_exam_apply where exam_apply_id in
+		<foreach collection="array" item = "id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>	
+	
+	
+	
+	<select id="statisticsScore"  resultType="java.util.HashMap">
+		SELECT
+			(select count(1) from exam_score t where score &gt;= 0 and score &lt; 100 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange1,
+			(select count(1) from exam_score t where score &gt;= 100 and score &lt; 200 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange2,
+			(select count(1) from exam_score t where score &gt;= 200 and score &lt; 300 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange3,
+			(select count(1) from exam_score t where score &gt;= 300 and score &lt; 400 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange4,
+			(select count(1) from exam_score t where score &gt;= 400 and score &lt; 500 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange5,
+			(select count(1) from exam_score t where score &gt;= 500 and score &lt; 600 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange6,
+			(select count(1) from exam_score t where score &gt;= 600 and score &lt; 700 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange7,
+			(select count(1) from exam_score t where score &gt;= 700 and t.exam_apply_id in(select id from exam_apply_info  where exam_id = #{examId}) ) scoreRange8
+		FROM
+			DUAL
+	</select>
+	
+	
+	<select id="statisticsRegion"  resultType="java.util.HashMap">
+		SELECT
+			(select count(1) from exam_apply_info where  exam_id = #{examId} and place_id in (select id from exam_place where region = 1)) region1,
+			(select count(1) from exam_apply_info where  exam_id = #{examId} and  place_id in (select id from exam_place where region = 2)) region2,
+			(select count(1) from exam_apply_info where  exam_id = #{examId} and  place_id in (select id from exam_place where region = 3)) region3,
+			(select count(1) from exam_apply_info where  exam_id = #{examId} and  place_id in (select id from exam_place where region = 4)) region4,
+			(select count(1) from exam_apply_info where  exam_id = #{examId} and  place_id in (select id from exam_place where region = 5)) region5,
+			(select count(1) from exam_apply_info where  exam_id = #{examId} and  place_id in (select id from exam_place where region = 6)) region6
+		FROM
+			DUAL
+	</select>
+	
+	
 </mapper>

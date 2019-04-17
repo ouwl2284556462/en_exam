@@ -1,0 +1,50 @@
+<div>
+		<table class="table  table-bordered  table-hover  table-condensed student-exam-list-table">
+			<caption>用户信息</caption>
+			<thead>
+				<tr>
+					<th class="text-center">选择</th>
+					<th class="text-center">准考证</th>
+					<th class="text-center">姓名</th>
+					<th class="text-center">场次</th>
+					<th class="text-center">分数</th>
+					<th class="text-center">证件类型</th>
+					<th class="text-center">证件号码</th>
+					<th class="text-center">地区</th>
+					<th class="text-center">报考时间</th>
+				</tr>
+			</thead>
+	    	<tbody>
+	    		<tr class="student-exam-list-table-row"  th:each="exam, iterStat:${pageInfo.list}">
+	    			<td class="text-center"><input class="student-exam-list-table-col-selectCheckBox" type="checkbox" th:data-apply-id="${exam.id}"/></td>
+	    			<td class="text-center" th:text="${exam.examIdCode}"></td>
+	    			<td class="text-center" th:text="${exam.name}"></td>
+	    			<td class="text-center" th:text="${exam.examInfo.examName}" ></td>
+	    			<td class="text-center" th:text="${exam?.examScore?.score}" ></td>
+	    			<td class="text-center" owl:enumVal="${exam.identityType}" owl:enumKey="'identity_type'"  ></td>
+	    			<td class="text-center" th:text="${exam.identityNum}"></td>
+	    			<td class="text-center" owl:enumVal="${exam.examPlace.region}" owl:enumKey="'exam_place_region'"  ></td>
+	    			<td class="text-center" th:text="${#dates.format(exam.applyTime, 'yyyy-MM-dd')}"></td>
+	    		</tr>
+	    	</tbody>
+	    	
+		</table>
+		
+	  	<!-- 分页 -->
+	  	<div th:replace="common/pager :: pager(${pageInfo}, student_manage_onQryFormSubmit)"></div>
+  	
+	  	<div class="student-exam-list-operator-btn-list">
+	  		<input id="student-exam-list-qryStudentExamDtlBtn" class="btn btn-primary" type="button" th:data-target-url="@{/admin/Workspace/toQryStudentExamDtl.do}"  data-loading-text="处理中.." value="查看"/>
+	  		<input id="student-exam-list-ChgStudentExamInfoBtn" class="btn btn-primary" type="button" th:data-target-url="@{/admin/Workspace/toChgStudentExamInfo.do}"  data-loading-text="处理中.." value="修改"/>
+	  		<input id="student-exam-list-printTicketBtn" class="btn btn-primary" type="button" th:data-target-url="@{/admin/Workspace/printTicket.do}"  data-loading-text="处理中.." value="打印准考证"/>
+	  		<input id="student-exam-list-deleteBtn" class="btn btn-danger" type="button" th:data-target-url="@{/admin/Workspace/deleteStudentExamList.do}"  data-loading-text="处理中.." value="删除"/>
+	  	</div>
+	  	
+	<script type="text/javascript" th:inline="javascript">
+		//加载css
+		var css_url = [[@{/static/admin/workspace/css/student_exam_list.css}]];
+		comm_ui_loadCSS(css_url);
+	</script>
+	
+	<script th:src="@{/static/admin/workspace/js/student_exam_list.js}"></script>
+</div>

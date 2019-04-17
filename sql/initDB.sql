@@ -61,6 +61,10 @@ insert into sys_dict_item(group_id, item_id, item_name, sort) values('sex', '2',
 --考点地区
 insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '1', '北京', 1);
 insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '2', '广东', 2);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '3', '四川', 3);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '4', '湖南', 4);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '5', '上海', 5);
+insert into sys_dict_item(group_id, item_id, item_name, sort) values('exam_place_region', '6', '辽宁', 6);
 
 --角色
 insert into sys_dict_item(group_id, item_id, item_name, sort) values('sys_role', 'admin', '系统管理员', 1);
@@ -118,6 +122,20 @@ values('1', '清华大学', '北京市海淀区清华大学', '乘坐运通110�
 insert into exam_place(region, name, address, traffic) 
 values('2', '中山大学', '中山大学（广州校区东校区）', '地铁大学城北站D出口步行30分钟左右。');
 
+insert into exam_place(region, name, address, traffic) 
+values('3', '四川大学', '成都市东区和平路11号', '地铁小北站D出口步行60分钟左右。');
+
+insert into exam_place(region, name, address, traffic) 
+values('4', '湖南大学', '长沙市南区申和路28号', '地铁五盒站A出口步行20分钟左右。');
+
+insert into exam_place(region, name, address, traffic) 
+values('5', '交通大学', '浦东区北京路52号', '地铁浦东站C出口步行20分钟左右。');
+
+insert into exam_place(region, name, address, traffic) 
+values('6', '辽宁大学', '辽宁大学西校区', '地铁城西站E出口步行25分钟左右。');
+
+
+
 --报考信息
 create table exam_apply_info(
 	id int not null auto_increment,
@@ -163,6 +181,26 @@ create table sys_user_role(
 	role_id int not null,
 	primary key (user_id, role_id)
 );
+
+--分数表
+create table exam_score(
+	exam_apply_id int not null,
+	score int not null,
+	operator_id int not null,
+	op_time datetime not null,
+	mark varchar(32),
+	primary key (exam_apply_id)
+);
+
+
+---管理员帐号
+update sys_user_role set role_id = 1 where user_id = 管理员帐号;
+
+
+
+
+
+
 
 
 
