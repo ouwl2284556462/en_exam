@@ -8,17 +8,17 @@
 	    	<tbody>
 	    		<tr>
 	    			<td class=" text-center col-xs-2">准考证号</td>
-	    			<td class=" text-center col-xs-5" th:text="${examApplyInfo.examIdCode}"></td>
+	    			<td class=" text-center col-xs-5" th:text="${examApplyInfo?.examIdCode}"></td>
 	    		</tr>  
 	    		
 	    		<tr>
 	    			<td class=" text-center">姓名</td>
-	    			<td class=" text-center" th:text="${examApplyInfo.name}"></td>
+	    			<td class=" text-center" th:text="${examApplyInfo?.name}"></td>
 	    		</tr>     	    		
 	    	
 	    		<tr>
 	    			<td class="text-center" >级别</td>
-	    			<td class="text-center" owl:enumVal="${examApplyInfo.examInfo.examLevel}" owl:enumKey="'exam_level'"></td>
+	    			<td class="text-center" owl:enumVal="${examApplyInfo?.examInfo?.examLevel}" owl:enumKey="'exam_level'"></td>
 	    		</tr>
 	    		
 	    		<tr>
