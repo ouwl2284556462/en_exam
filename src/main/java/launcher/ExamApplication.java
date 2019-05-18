@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class ExamApplication {
 
 	public static void main(String[] args) {
+		//程序入口
 		SpringApplication.run(ExamApplication.class, args);
 	}
 

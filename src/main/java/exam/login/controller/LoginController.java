@@ -11,14 +11,25 @@ import exam.user.service.UserService;
 
 @Controller
 @RequestMapping("/login")
+/**
+ *登录相关 
+ */
 public class LoginController {
 	
 	@Autowired
+	/**
+	 * 用户信息服务
+	 */
 	private UserService userService;
 	
 	
 	
 	@RequestMapping("/loginErr.do")
+	/**
+	 * 跳转到登录页面，并带有错误信息
+	 * @param model
+	 * @return
+	 */
 	public String loginErr(Model model) {
 		model.addAttribute("loginError", true);
 		return "/login/login";
@@ -26,6 +37,10 @@ public class LoginController {
 	
 	
 	@RequestMapping("/toCreateAccount.do")
+	/**
+	 * 跳转到创建帐号页面
+	 * @return
+	 */
 	public String toCreateAccount() {
 		return "login/create_account";
 	}
@@ -38,6 +53,7 @@ public class LoginController {
 	public String createAccount(Model model, UserBean userBean) {
 		String errMsg;
 		try {
+			//注册账号
 			errMsg = userService.addUser(userBean);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -55,6 +71,11 @@ public class LoginController {
 	
 	@RequestMapping("/isAcctNameUsed.do")
 	@ResponseBody
+	/**
+	 * 检查帐号是否已经被使用
+	 * @param acctName
+	 * @return
+	 */
 	public String isAcctNameUsed(String acctName) {
 		if(userService.isAcctNameUsed(acctName)) {
 			return "Y";

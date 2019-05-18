@@ -3,21 +3,37 @@ package exam.examination.bean;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * 报名信息 
+ */
 public class ExamApplyInfoBean {
+	//ID
 	private Integer id;
+	//编码
 	private String code;
+	//照片url
 	private String photeUrl;
+	//名字
 	private String name;
+	//名字拼音
 	private String nameSpell;
+	//证件号码
 	private String identityNum;
+	//证件类型
 	private String identityType;
+	//性别
 	private String sex;
+	//国家
 	private String country;
+	//生日
 	private Date birthday;
+	//报名时间
 	private Timestamp applyTime;
-	
+	//考试信息
 	private ExamInfoBean examInfo;
+	//考点信息
 	private ExamPlaceBean examPlace;
+	//考试分数
 	private ExamScoreBean examScore;
 	
 	public ExamScoreBean getExamScore() {

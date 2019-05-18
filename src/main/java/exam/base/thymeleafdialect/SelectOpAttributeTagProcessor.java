@@ -37,7 +37,9 @@ import exam.dict.service.SysDictItemService;
  */
 public class SelectOpAttributeTagProcessor extends AbstractAttributeTagProcessor {
 	
+	//属性名ing
     private static final String ATTR_NAME = "selectOp";
+    //优先级
     private static final int PRECEDENCE = 10000;
     
     //枚举值列表
@@ -51,6 +53,7 @@ public class SelectOpAttributeTagProcessor extends AbstractAttributeTagProcessor
     //是否必填-必填
     private static final String PARAM_VAL_REQUIRE_YES = "true";   
     
+    //标签前缀
     private String dialectPrefix;
     
 
@@ -69,6 +72,9 @@ public class SelectOpAttributeTagProcessor extends AbstractAttributeTagProcessor
 	}
 
 	@Override
+	/**
+	 * 处理
+	 */
 	protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
 			String attributeValue, IElementTagStructureHandler structureHandler) {
 		IStandardExpressionParser parser = StandardExpressions.getExpressionParser(context.getConfiguration());
@@ -80,13 +86,16 @@ public class SelectOpAttributeTagProcessor extends AbstractAttributeTagProcessor
 		}
 		
 		List<SysDictItemBean> sysDictItemList = null;
+		//获取枚举值
 		String enumKey = parserString(context, parser, tag.getAttributeValue(dialectPrefix, PARAM_ENUM_KEY));
 		if(StringUtils.isEmpty(enumKey)) {
 			try {
+				//直接获取
 				sysDictItemList = (List<SysDictItemBean>) parser.parseExpression(context, tag.getAttributeValue(dialectPrefix, PARAM_ENUM_LIST)).execute(context);
 			}catch (Exception e) {
 			}
 		}else {
+			//查询字段表获取
 			ApplicationContext appCtx = SpringContextUtils.getApplicationContext(context);
 			SysDictItemService sysDictItemService = appCtx.getBean(SysDictItemService.class);
 			sysDictItemList = sysDictItemService.findSysDictItemBeansByGroupId(enumKey);
@@ -96,11 +105,13 @@ public class SelectOpAttributeTagProcessor extends AbstractAttributeTagProcessor
 			return;
 		}
 		
+		//获取默认选择值
 		String defaultVal = parserString(context, parser, tag.getAttributeValue(dialectPrefix, PARAM_VALUE));
 		if("null".equals(defaultVal) || "".equals(defaultVal)) {
 			defaultVal = null;
 		}
 		
+		//设置select标签的option
 		for(SysDictItemBean item : sysDictItemList) {
 			String itemId = item.getItemId();
 			html.append("<option value=\"").append(item.getItemId()).append("\"");
@@ -114,9 +125,17 @@ public class SelectOpAttributeTagProcessor extends AbstractAttributeTagProcessor
 			    .append("</option>");
 		}
 		
+		//设置生成内容
 		structureHandler.setBody(html.toString(), false);
 	}
 
+	/**
+	 * 解析字符串
+	 * @param context
+	 * @param parser
+	 * @param input
+	 * @return
+	 */
 	private String parserString(ITemplateContext context, IStandardExpressionParser parser, String input) {
 		if(StringUtils.isEmpty(input)) {
 			return null;

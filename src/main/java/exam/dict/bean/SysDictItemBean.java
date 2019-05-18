@@ -1,11 +1,20 @@
 package exam.dict.bean;
 
+/**
+ * 字典信息
+ */
 public class SysDictItemBean {
+	//组ID
 	private String groupId;
+	//字典id
 	private String itemId;
+	//字典名称
 	private String itemName;
+	//排序
 	private Integer sort;
+	//描述
 	private String description;
+	//备注
 	private String mark;
 	
 	public String getGroupId() {

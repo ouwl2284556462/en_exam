@@ -194,13 +194,4 @@ create table exam_score(
 
 
 ---管理员帐号
-update sys_user_role set role_id = 1 where user_id = 管理员帐号;
-
-
-
-
-
-
-
-
-
+update sys_user_role set role_id = 1 where user_id = (select id from account where account_name = '邮箱账号');

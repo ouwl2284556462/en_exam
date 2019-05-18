@@ -14,12 +14,14 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.github.pagehelper.PageHelper;
 
 @Configuration
+/**
+ *	MVC配置 
+ */
 public class MVCConfig implements WebMvcConfigurer{
 	
 	@Value("${user.imagesPath}")
@@ -27,12 +29,14 @@ public class MVCConfig implements WebMvcConfigurer{
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
+		//设置默认登录页面
 		registry.addViewController("/").setViewName("/login/login");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 	
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    	//设置静态资源位置
     	registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     	
     	//用户头像图片保存位置
@@ -42,17 +46,23 @@ public class MVCConfig implements WebMvcConfigurer{
     
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
+    	//设置字符集
         StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
         return converter;
     }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    	//设置转换器
         converters.add(responseBodyConverter());
     }
     
     
 	@Bean
+	/**
+	 * 分页插件配置
+	 * @return
+	 */
     public PageHelper pageHelper(){
         //分页插件
         PageHelper pageHelper = new PageHelper();

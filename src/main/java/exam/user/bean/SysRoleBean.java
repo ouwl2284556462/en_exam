@@ -1,8 +1,14 @@
 package exam.user.bean;
 
+/**
+ *	用户角色信息 
+ *
+ */
 public class SysRoleBean {
 	private Integer id;
+	//角色名
 	private String name;
+	//备注
 	private String mark;
 
 	public Integer getId() {

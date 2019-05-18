@@ -7,11 +7,15 @@ import exam.base.thymeleafdialect.OwlDialect;
 
 
 @Configuration
+/**
+ * 自定义标签配置
+ *
+ */
 public class DialectConfig {
 	
 	@Bean
 	/**
-	 * owl:*
+	 * 返回自定的标签
 	 * @return
 	 */
     public OwlDialect owlDialect(){

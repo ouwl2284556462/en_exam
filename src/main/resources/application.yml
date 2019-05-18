@@ -4,7 +4,7 @@ spring:
     url: jdbc:p6spy:mysql://192.168.1.102:3306/en_exam?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    driver-class-name:  com.p6spy.engine.spy.P6SpyDriver
   servlet:
      multipart:
         max-file-size: 5MB

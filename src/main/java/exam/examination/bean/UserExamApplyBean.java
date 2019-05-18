@@ -1,7 +1,12 @@
 package exam.examination.bean;
 
+/**
+ * 报名信息 
+ */
 public class UserExamApplyBean {
+	//用户id
 	private Integer userId;
+	//报名id
 	private Integer examApplyId;
 
 	public Integer getUserId() {

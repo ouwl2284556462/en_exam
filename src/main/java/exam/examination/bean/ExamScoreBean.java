@@ -2,11 +2,19 @@ package exam.examination.bean;
 
 import java.sql.Timestamp;
 
+/**
+ * 考试分数
+ */
 public class ExamScoreBean {
+	//报名ID
 	private Integer examApplyId;
+	//分数
 	private Integer score;
+	//录入成绩操作员id
 	private Integer operatorId;
+	//录入时间
 	private Timestamp opTime;
+	//备注
 	private String mark;
 
 	public Integer getExamApplyId() {

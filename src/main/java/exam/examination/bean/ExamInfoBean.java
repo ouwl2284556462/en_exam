@@ -2,15 +2,27 @@ package exam.examination.bean;
 
 import java.sql.Timestamp;
 
+/**
+ * 考试信息
+ */
 public class ExamInfoBean {
+	//id
 	private Integer id;
+	//考试名字
 	private String examName;
+	//考试等级
 	private String examLevel;
+	//报名开始时间
 	private Timestamp applyStartTime;
+	//报名截止时间
 	private Timestamp applyEndTime;
+	//考试时间
 	private Timestamp examTime;
+	//创建时间
 	private Timestamp createTime;
+	//状态
 	private String state;
+	//备注
 	private String mark;
 
 	public Integer getId() {

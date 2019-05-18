@@ -1,11 +1,19 @@
 package exam.examination.bean;
 
+/**
+ * 考试地点信息 
+ */
 public class ExamPlaceBean {
 	private Integer id;
+	//地区
 	private String region;
+	//考点名字
 	private String name;
+	//地址
 	private String address;
+	//交通
 	private String traffic;
+	//备注
 	private String mark;
 	
 	public Integer getId() {

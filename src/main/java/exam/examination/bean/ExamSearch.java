@@ -4,27 +4,37 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * 用户检索考生信息使用
+ */
 public class ExamSearch {
 	
 	private Integer id;
 
 	// 准考证号码
 	private String code;
-
+	
+	//考试id
 	private Integer examId;
 
+	//证件类型
 	private String identityType;
 
+	//证件号码
 	private String identityNum;
 
+	//名字
 	private String name;
 
+	//考试地区
 	private String examRegion;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
+	//报名开始时间
 	private Date applyStartDate;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd") 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//报名结束时间
 	private Date applyEndDate;
 
 	public String getCode() {

@@ -2,17 +2,27 @@ package exam.user.bean;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+/**
+ * 用户信息
+ *
+ */
 public class UserBean {
 	private Integer id;
+	//帐号名
 	private String accountName;
+	//密码
 	private String password;
+	//名字
 	private String name;
+	//电话号码
 	private String tel;
+	//证件号码
 	private String identityNum;
+	//证件类型
 	private String identityType;
+	//创建时间
 	private Timestamp createTime;
-	
+	//拥有的角色
 	private List<SysRoleBean> roles;
 	
 	public Timestamp getCreateTime() {

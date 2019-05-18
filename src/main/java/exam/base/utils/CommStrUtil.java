@@ -4,6 +4,10 @@ import java.util.Properties;
 
 import org.springframework.util.StringUtils;
 
+/**
+ * 公共工具类
+ *
+ */
 public class CommStrUtil {
 	
 	/**
